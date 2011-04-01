@@ -20,8 +20,7 @@
 */
 joCard = function(data) {
 	joContainer.apply(this, arguments);
-	
-	// add events for activate and deactivate
+
 	this.activateEvent = new joSubject(this);
 	this.deactivateEvent = new joSubject(this);
 };
