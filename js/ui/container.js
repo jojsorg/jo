@@ -87,7 +87,8 @@ joContainer.extend(joView, {
 		return this.refresh();
 	},
 	
-	activate: function() {},
+	activate: function() {
+	},
 	
 	deactivate: function() {},
 

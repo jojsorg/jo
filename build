@@ -13,11 +13,11 @@ cat interface.js collect.js view.js container.js control.js button.js busy.js li
 cd ..
 echo "Done."
 
-echo "Minifying jo.js -> jo_min.js"
-jsmin < jo.js > jo_min.js
+#echo "Minifying jo.js -> jo_min.js"
+#jsmin < jo.js > jo_min.js
 #echo "Compiling jo.js -> jo_com.js"
 #java -jar ~/bin/compiler.jar --js=jo.js --js_output_file=jo_com.js
-cd ..
-echo "Done."
+#cd ..
+#echo "Done."
 
 

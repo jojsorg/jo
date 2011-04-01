@@ -2627,7 +2627,8 @@ joContainer.extend(joView, {
 		return this.refresh();
 	},
 	
-	activate: function() {},
+	activate: function() {
+	},
 	
 	deactivate: function() {},
 
@@ -3335,11 +3336,11 @@ joCaption.extend(joControl, {
 	
 	- joContainer
 	
-	Methods
+	Events
 	-------
 	
-	- `activate()`
-	- `deactivate()`
+	- activateEvent
+	- deactivateEvent 
 	
 	  These methods are called automatically by various joView objects, for
 	  now joStack is the only one which does. Basically, allows you to add
@@ -3348,9 +3349,21 @@ joCaption.extend(joControl, {
 */
 joCard = function(data) {
 	joContainer.apply(this, arguments);
+	
+	// add events for activate and deactivate
+	this.activateEvent = new joSubject(this);
+	this.deactivateEvent = new joSubject(this);
 };
 joCard.extend(joContainer, {
-	tagName: "jocard"
+	tagName: "jocard",
+	
+	activate: function() {
+		this.activateEvent.fire();
+	},
+	
+	deactivate : function() {
+		this.deactivateEvent.fire();
+	}
 });
 
 /**
