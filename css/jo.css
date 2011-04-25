@@ -516,6 +516,59 @@ joflexrow > jotoggle {
   -o-box-flex: 0;
   box-flex: 0;
 }
+joslider {
+  cursor: default;
+  display: block;
+  margin-left: 10px;
+  margin-right: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  background-color: inherit;
+  background-image: url(shade-top.png);
+  background-repeat: repeat-x;
+  background-position: top left;
+  background-jotogglesize: 100% 50%;
+  -webkit-background-size: 100% 50%;
+  -moz-background-size: 100% 50%;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+  height:40px;
+}
+josliderthumb {
+  margin: 0px 10px 10px 10px;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: #7e82a1;
+  font-weight: normal;
+  cursor: pointer;
+  outline: none;
+  outline-color: transparent;
+  padding: 10px 0;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  background-image: url(shiny.png);
+  background-repeat: repeat-x;
+  background-position: top left;
+  background-size: 100% 50%;
+  -webkit-background-size: 100% 50%;
+  -moz-background-size: 100% 50%;
+  border-color: #000;
+  margin: 0;
+  text-align: center;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+  padding: 10px 0;
+  width: 60px;
+  height: 18px;
+  -webkit-box-shadow: 2px 0 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 2px 0 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 0 2px rgba(0, 0, 0, 0.2);
+  position:absolute;
+} 
 jotoggle {
   cursor: pointer;
   display: block;
