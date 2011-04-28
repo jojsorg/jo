@@ -561,24 +561,6 @@ joDOM = {
 		return css;
 	},
 	
-	getBounds:function(node) {
-		var top = joDOM.pageOffsetTop(node);
-		var left = joDOM.pageOffsetLeft(node);
-		var bottom = top+node.offsetHeight;
-		var right = left+node.offsetWidth;
-		
-		return {
-			top:top,
-			left:left,
-			bottom:bottom,
-			right:right,
-			center:{
-				x:left+(right-left)/2,
-				y:top+(bottom-top)/2
-			}			
-		};
-	},
-	
 	pageOffsetLeft: function(node) {
 		var l = 0;
 		
@@ -596,13 +578,31 @@ joDOM = {
 		var t = 0;
 		
 		while (typeof node !== 'undefined' && node && node.parentNode !== window) {
-			if (node.offsetTop)
+			if(node.offsetTop)
 				t += node.offsetTop;
 				
 			node = node.parentNode;
 		}
 
 		return t;
+	},
+	
+	getBounds:function(node) {
+		var top = joDOM.pageOffsetTop(node);
+		var left = joDOM.pageOffsetLeft(node);
+		var bottom = top+node.offsetHeight;
+		var right = left+node.offsetWidth;
+		
+		return {
+			top:top,
+			left:left,
+			bottom:bottom,
+			right:right,
+			center:{
+				x:left+(right-left)/2,
+				y:top+(bottom-top)/2
+			}			
+		};
 	}
 };
 
@@ -1619,127 +1619,6 @@ joDatabase.prototype = {
 	}
 };
 /**
-	joSQLDataSource
-	================
-
-	SQL flavor of joDataSource which uses "HTML5" SQL found in webkit.
-
-	Methods
-	-------
-
-	- `setDatabase(joDatabase)`
-	- `setQuery(query)`
-	- `setParameters(arguments)`
-	- `execute(query, arguments)`
-	
-	Events
-	------
-	
-	- `changeEvent`
-	
-	  Fired when data is loaded after an `execute()` or when data is cleared.
-	
-	- `errorEvent`
-	
-	  Fired when some sort of SQL error happens.
-
-	Extends
-	-------
-
-	- joDataSource
-*/
-joSQLDataSource = function(db, query, args) {
-	this.db = db;
-	this.query = (typeof query == 'undefined') ? "" : query;
-	this.args = (typeof args == 'undefined') ? [] : args;
-	
-	this.changeEvent = new joEvent.subject(this);
-	this.errorEvent = new joEvent.subject(this);
-};
-joSQLDataSource.prototype = {
-	setDatabase: function(db) {
-		this.db = db;
-		return this;
-	},
-	
-	setQuery: function(query) {
-		this.query = query;
-		return this;
-	},
-
-	setData: function(data) {
-		this.data = data;
-		this.changeEvent.fire();
-		return this;
-	},
-
-	clear: function() {
-		this.data = [];
-		this.changeEvent.fire();
-		return this;
-	},
-
-	setParameters: function(args) {
-		this.args = args;
-		return this;
-	},
-
-	execute: function(query, args) {
-		this.setQuery(query || "");
-		this.setParameters(args);
-		
-		if (this.query)
-			this.refresh();
-			
-		return this;
-	},
-	
-	refresh: function() {
-		if (!this.db) {
-			this.errorEvent.fire();
-//			joLog("query error: no db!");
-			return this;
-		}
-		
-		var self = this;
-		var args;
-
-		if (arguments.length) {
-			args = [];
-			for (var i = 0; i < arguments.length; i++)
-				args.push(arguments[i]);
-		}
-		else {
-			args = this.args;
-		}
-		
-		var query = this.query;
-
-		function success(t, result) {
-			self.data = [];
-
-			for (var i = 0, l = result.rows.length; i < l; i++) {
-				var row = result.rows.item(i);
-
-				self.data.push(row);
-			}
-			
-			self.changeEvent.fire(self.data);
-		}
-		
-		function error() {
-			joLog('SQL error', query, "argument count", args.length);
-			self.errorEvent.fire();
-		}
-		
-		this.db.db.transaction(function(t) {
-			t.executeSql(query, args, success, error);
-		});
-		
-		return this;
-	}
-};
-/**
 	joFileSource
 	============
 	
@@ -1871,6 +1750,127 @@ joFile = function(url, call, context, timeout) {
 	}
 };
 
+/**
+	joSQLDataSource
+	================
+
+	SQL flavor of joDataSource which uses "HTML5" SQL found in webkit.
+
+	Methods
+	-------
+
+	- `setDatabase(joDatabase)`
+	- `setQuery(query)`
+	- `setParameters(arguments)`
+	- `execute(query, arguments)`
+	
+	Events
+	------
+	
+	- `changeEvent`
+	
+	  Fired when data is loaded after an `execute()` or when data is cleared.
+	
+	- `errorEvent`
+	
+	  Fired when some sort of SQL error happens.
+
+	Extends
+	-------
+
+	- joDataSource
+*/
+joSQLDataSource = function(db, query, args) {
+	this.db = db;
+	this.query = (typeof query == 'undefined') ? "" : query;
+	this.args = (typeof args == 'undefined') ? [] : args;
+	
+	this.changeEvent = new joEvent.subject(this);
+	this.errorEvent = new joEvent.subject(this);
+};
+joSQLDataSource.prototype = {
+	setDatabase: function(db) {
+		this.db = db;
+		return this;
+	},
+	
+	setQuery: function(query) {
+		this.query = query;
+		return this;
+	},
+
+	setData: function(data) {
+		this.data = data;
+		this.changeEvent.fire();
+		return this;
+	},
+
+	clear: function() {
+		this.data = [];
+		this.changeEvent.fire();
+		return this;
+	},
+
+	setParameters: function(args) {
+		this.args = args;
+		return this;
+	},
+
+	execute: function(query, args) {
+		this.setQuery(query || "");
+		this.setParameters(args);
+		
+		if (this.query)
+			this.refresh();
+			
+		return this;
+	},
+	
+	refresh: function() {
+		if (!this.db) {
+			this.errorEvent.fire();
+//			joLog("query error: no db!");
+			return this;
+		}
+		
+		var self = this;
+		var args;
+
+		if (arguments.length) {
+			args = [];
+			for (var i = 0; i < arguments.length; i++)
+				args.push(arguments[i]);
+		}
+		else {
+			args = this.args;
+		}
+		
+		var query = this.query;
+
+		function success(t, result) {
+			self.data = [];
+
+			for (var i = 0, l = result.rows.length; i < l; i++) {
+				var row = result.rows.item(i);
+
+				self.data.push(row);
+			}
+			
+			self.changeEvent.fire(self.data);
+		}
+		
+		function error() {
+			joLog('SQL error', query, "argument count", args.length);
+			self.errorEvent.fire();
+		}
+		
+		this.db.db.transaction(function(t) {
+			t.executeSql(query, args, success, error);
+		});
+		
+		return this;
+	}
+};
 /**
 	joScript
 	========
@@ -2186,6 +2186,21 @@ joDispatch.prototype = {
 	}	
 };
 /**
+	joCollect
+	=========
+	
+	*DEPRECATED* use joInterface instead. This function is planned
+	to die when jo goes beta.
+
+*/
+joCollect = {
+	get: function(parent) {
+		// this is what happens when you announced something not
+		// quite fully baked
+		return new joInterface(parent);
+	}
+};
+/**
 	joInterface
 	===========
 	
@@ -2408,21 +2423,6 @@ joInterface.prototype = {
 		// send back our object with named controls as properties
 //		console.log(ui);
 		return ui;
-	}
-};
-/**
-	joCollect
-	=========
-	
-	*DEPRECATED* use joInterface instead. This function is planned
-	to die when jo goes beta.
-
-*/
-joCollect = {
-	get: function(parent) {
-		// this is what happens when you announced something not
-		// quite fully baked
-		return new joInterface(parent);
 	}
 };
 /**
@@ -6439,4 +6439,3 @@ joSlider.extend(joControl, {
 		this.initValue(this.value);
 	}
 });
-
