@@ -1,0 +1,889 @@
+/*
+	ipad4joB.css
+*/
+
+.no-copy{-webkit-user-select:none;}
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #EEE;
+	word-wrap: break-word;
+	overflow: hidden;
+	font-family: helvetica;
+}
+jobutton,
+joview,
+jolist,
+jolistitem,
+jomenu,
+jomenuitem,
+joexpando,
+joexpandotitle,
+jogroup,
+jocard,
+jostack,
+jotitle,
+jocaption,
+jolabel,
+jodivider,
+joinput,
+input,
+textarea,
+jotextarea,
+jooption,
+jooptionitem,
+jonavbar,
+jocontainer,
+jotoggle {
+	display: block;
+	margin: 0;
+	padding: 0;
+	-webkit-user-select: none;
+}
+
+.noflex {
+	-webkit-box-flex: 0;
+}
+.flexible {
+	-webkit-box-flex: 1;
+}
+.flex {
+	display: block;
+	display: -webkit-box;
+	margin: 0;
+}
+.listitem {
+	border-top: 1px solid rgba(0, 0, 0, 0.4);
+	margin: 0;
+	padding: 10px;
+	cursor: pointer;
+}
+.widgety {
+	color: rgba(255, 255, 255, 0.9);
+	background-color: #7e82a1;
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+}
+
+.stretch-full {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.widget {
+	margin: 0px 10px 10px 10px;
+}
+
+.selected {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+	color: white;
+	font-size:medium;
+	font-weight:  bold;
+}
+.focus {
+	background-color: #fff;
+}
+jooptionitem:last-child {
+	-webkit-border-radius: 0;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-right-width: 1px;
+}
+jobutton {
+  	display: block;
+	text-align: center;
+	font-size: 18px;/*x-large ? medium ?*/
+	color: black;
+	-webkit-appearance: none;
+
+    padding: 0.5em;
+    line-height: 1.7em;
+    
+    border:solid 1px #555;
+    
+    -webkit-box-shadow: 1px 1px 1px #fff;
+
+    width: auto;
+    padding: 0.25em 1em;
+
+	/*rounded*/
+	border-radius: 2em;
+	/*gray*/
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+}
+
+jobutton:hover {
+	opacity: 0.6;
+	outline: none;
+	border: 2px solid #058cf5;
+}
+
+jobutton.focus {
+	opacity: 0.6;
+	outline: none;
+	border: 2px solid #058cf5;
+}
+
+
+jooption {
+	display: block;
+	display: -webkit-box;
+	margin: 0;
+	box-align: stretch;
+	margin: 0px 10px 10px 10px;
+	-webkit-box-shadow: 1px 1px 1px #fff;
+}
+jooptionitem {
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+	border:solid 1px #555;
+
+	font-weight: normal;
+	cursor: pointer;
+	padding: 10px 0;  
+	-webkit-box-flex: 1;
+	text-align: center;
+	border-right-width: 0;
+	margin: 0;
+}
+jooptionitem:first-child {
+	-webkit-border-radius: 0;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+jooptionitem:last-child {
+	-webkit-border-radius: 0;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+}
+
+/*
+jooptionitem:hover{
+	opacity: 0.6;
+	outline: none;
+	border: 2px solid #058cf5;
+}
+
+joexpandotitle:hover{
+	opacity: 0.6;
+	outline: none;
+	border: 2px solid #058cf5;
+}
+*/
+
+jobutton,
+input,
+jolabel,
+textarea,
+joexpando {
+	margin: 0px 10px 10px 10px;
+}
+jotitle {
+	
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+
+	background-image: none;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.8);
+	padding: 10px;
+
+	font-size: 18px;
+	margin: 0;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+}
+*:focus {
+	outline: none;
+}
+jolistitem, jomenuitem {
+	border-top: 1px solid rgba(0, 0, 0, 0.4);
+	margin: 0;
+	padding: 10px;
+	cursor: pointer;
+}
+
+
+
+
+jomenuitem:first-child {
+	border-top: none;
+}
+
+jomenuitem:last-child {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+jomenuitem:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+	color: white;
+	font-size:medium;
+	font-weight:  bold;
+}
+
+jolistitem:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+	color: white;
+	font-size:medium;
+	font-weight:  bold;
+}
+
+joselect.focus {
+	background-color: transparent;
+	
+}
+jolist {
+	margin: 0;
+}
+joselectlist, joexpandocontent {
+	display: block;
+	border: 1px solid rgba(0, 0, 0, 0.6);
+	border-top: none;
+	-webkit-border-radius: 0;
+	-webkit-border-bottom-right-radius: 0.4em;
+	-webkit-border-bottom-left-radius: 0.4em;
+}
+
+joselectlist > :first-child
+{
+	border-top: none;
+}
+
+joexpando {
+	display: block;
+	padding-bottom: 0px;
+	margin-bottom: 0;
+}
+joexpando.open {
+	margin-bottom: 10px;
+}
+joexpandocontent {
+	padding-top: 10px;
+}
+joselectlist > *:last-child {
+	border-bottom: none;
+	-webkit-border-radius: 0;
+	-webkit-border-bottom-right-radius: 0.4em;
+	-webkit-border-bottom-left-radius: 0.4em;
+}
+joselectlist > *:last-child.select {
+	border-bottom: none;
+	-webkit-border-radius: 0;
+	-webkit-border-bottom-right-radius: 0.4em;
+	-webkit-border-bottom-left-radius: 0.4em;
+}
+
+jocard > jolist, jocard > jomenu {
+	margin: 0;
+}
+
+joinput.password, input.password {
+	-webkit-text-security: disc;
+}
+joinput,
+jotextarea,
+input,
+textarea {
+
+	cursor: text;
+	display: block;
+
+	margin: 0 10px 10px 10px;
+
+	white-space: nowrap;
+	overflow: hidden;
+	outline: none;
+
+	-webkit-user-select: text;
+
+	padding: 0.5em;
+	font-size: large;
+	line-height: 1.2em;
+
+	-webkit-appearance: none;
+	-webkit-box-shadow: 1px 1px 1px #fff;
+	-webkit-border-radius: 0.4em;  
+
+	border: 1px solid #DDD;
+	border-bottom-left-radius: 0.4em 0.4em;
+	border-bottom-right-radius: 0.4em 0.4em;
+	border-top-left-radius: 0.4em 0.4em;
+	border-top-right-radius: 0.4em 0.4em;
+
+}
+
+joinput.focus,
+jotextarea.focus,
+input.focus,
+textarea.focus{
+	outline: none;
+	border: 2px solid #058cf5;
+	background: white;
+}
+
+
+jolist, jomenu {
+	font-size: 18px;
+	background: white;
+}
+jotextarea, textarea {
+	white-space: normal;
+}
+joinput.disabled,
+jotextarea.disabled,
+input.disabled,
+textarea.disabled {
+	color: #666;
+	cursor: text;
+}
+joexpandotitle joicon {
+	position: absolute;
+	border: none;
+	display: block;
+	height: 32px;
+	width: 32px;
+	right: 4px;
+	top: 10%;
+	background: url(ios_expando.png) no-repeat;
+	-webkit-transform-origin: 16px 16px 0;
+	-webkit-transform: rotatez(0);
+	-webkit-transition: -webkit-transform 0.2s ease-out;
+
+}
+joexpando.open > joexpandotitle joicon {
+	-webkit-transform: rotatez(90deg);
+}
+joexpando > *:last-child {
+	height: 0;
+	overflow: hidden;
+	opacity: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	-webkit-transform-style: preserve- 3 d;
+	/*-webkit-transform: rotatex(-45deg);*/
+	-webkit-transform-origin: 0 0 0;
+	-webkit-transition: -webkit-transform 0.2s ease-out, opacity 0.2s ease-out, height 0.2s ease-out, overflow 0.2s ease-out;
+}
+joexpando.open > *:last-child {
+	height: 100%;
+	overflow: visible;
+	opacity: 1;
+	-webkit-transform: rotatex(0);
+}
+joexpando > *:first-child {
+	-webkit-transform: none;
+	opacity: 1;
+	overflow: visible;
+	height: auto;
+}
+joexpandotitle {
+	color: #000000;
+	position: relative;
+
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+	-webkit-box-shadow: 1px 1px 1px #fff;
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+
+	border:solid 1px #555;
+
+	-webkit-border-radius: 0.4em;
+
+	padding: 10px;
+	cursor: pointer;
+	text-align: left;
+}
+joexpando.open > *:first-child {
+	
+	-webkit-border-radius: 0;
+	-webkit-border-top-right-radius: 0.4em;
+	-webkit-border-top-left-radius: 0.4em;
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+	color: white;
+	font-size:medium;
+	font-weight:  bold;
+}
+jolabel, label {
+	margin-bottom: 5px;
+
+	font-weight: bold;
+	font-size: medium;
+	color: #333;
+
+}
+jocaption {
+	margin: 10px;
+}
+johtml {
+	display: block;
+	margin: 0 10px 10px 10px;
+	padding: 0;
+}
+jodivider {
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0 0 10px 0;
+  text-align: center;
+  height: 0;
+  display: block;
+}
+joflexrow > jotoggle {
+  -webkit-box-flex: 0;
+}
+jotoggle {
+	cursor: pointer;
+	display: block;
+	margin: 10px 10px 0 10px;
+	-webkit-border-radius: 2em;
+
+	-webkit-box-shadow: 1px 1px 1px #fff;
+	background: white;
+  
+	  border: 1px solid #DDD;
+
+	position: relative;
+	overflow: hidden;
+	width: 90px;
+}
+jotoggle > * {
+	margin: 0px 10px 10px 10px;
+	color: #000000;
+	background-color: #7e82a1;
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+
+	border:solid 1px #555;
+
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+
+	margin: 0;
+	text-align: center;
+
+	-webkit-border-radius: 2em;
+
+	padding: 10px 0;
+	width: 60px;
+
+	-webkit-transition: -webkit-transform 0.1s ease, background-color 0.1s ease;
+
+}
+
+/*
+jotoggle:hover{
+	border: 2px solid #058cf5;
+	opacity: 0.6;
+	outline: none;
+}
+*/
+jotoggle.on {
+
+}
+jotoggle.on > * {
+	color: white;
+	font-size:medium;
+	font-weight:  bold;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+	-webkit-transform: translatex(28px);
+}
+jotable {
+	display: block;
+	margin: 0 10px;
+}
+tr {
+	margin: 0;
+}
+th {
+	text-align: left;
+	padding: 5px;
+}
+td {
+	padding: 5px;
+}
+jolabel.left {
+	margin-top: 10px;
+	padding: 9px 0;
+}
+.disabled {
+	opacity: .2;
+}
+jotoolbar {
+	padding: 10px;
+}
+joflexrow {
+	display: block;
+	display: -webkit-box;
+	margin: 0;
+	width: 100%;
+}
+joflexrow > * {
+	-webkit-box-flex: 1;
+	margin-right: 0;
+	position: relative;
+}
+joflexrow > *:last-child {
+	margin-right: 10px;
+}
+joflexcol {
+	display: block;
+	display: -webkit-box;
+	margin: 0;
+
+	height: 100%;
+	width: 100%;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: stretch;
+
+	margin: 0;
+}
+joflexcol > * {
+	-webkit-box-flex: 1;
+
+}
+jotitle + joflexcol, jotitle + joflexrow {
+	margin-top: 10px;
+}
+jostack {
+	height: 100%;
+	-webkit-perspective: 400px;
+}
+jostack {
+	-webkit-transition: opacity 0.3s ease-out;
+}
+jostack > * {
+	
+	-webkit-transform-origin: 50% 100% 0;
+	-webkit-transform: rotatez(0) translatez(0);
+	-webkit-transition: -webkit-transform 0.3s ease-out, z-index 0.3s ease-out, height 0s ease, overflow 0s ease;
+	
+	
+}
+jostack > .next {
+	z-index: -1;
+	-webkit-transform: translatex(100%);
+	height: 100%;
+	overflow: hidden;
+}
+jostack > .prev {
+	z-index: 1;
+	/*-webkit-transform: translatex(-100%);*/
+	-webkit-transform: translatex(100%);
+	height: 100%;
+	overflow: hidden;
+}
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+jocard {
+	width: 100%;
+	min-height: 100%;
+
+	padding: 0;
+	margin: 0;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: stretch;
+
+	background: #EEE;
+}
+jocard > * {
+  /*	display: block; */
+
+}
+jocard > *:last-child {
+	margin-bottom: 10px;
+}
+joscroller {
+	position: absolute;
+	display: block;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+	-webkit-transform: translate3d(0, 0, 0);
+}
+joscroller > * {
+	position: absolute;
+	top: 0;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-transition: -webkit-transform 0s ease;
+}
+.flick {
+	-webkit-transition: -webkit-transform 1.8s cubic-bezier(0, 0.2, 0, 1);
+}
+.flickback {
+	-webkit-transition: -webkit-transform 0.2s cubic-bezier(0, 0, 0.4, 1);
+}
+.flickfast {
+	-webkit-transition: -webkit-transform 0.5s cubic-bezier(0, 0.2, 0, 1);
+}
+jocontainer {
+	margin: 0;
+	display: block;
+	position: relative;
+}
+jogroup {
+
+	-webkit-box-shadow: rgba(255, 255, 255, 0.699219) 0px 1px 0px;
+	background-color: #F7F7F7;
+	padding-top:15px; padding-right:10px;padding-left:10px; padding-bottom: 15px;
+	/*text-align:right; */
+	margin-left:10px; margin-top:10px; margin-right:10px; margin-bottom:10px;
+	border: 1px solid #DDD;
+	border-bottom-left-radius: 0.4em 0.4em;
+	border-bottom-right-radius: 0.4em 0.4em;
+	border-top-left-radius: 0.4em 0.4em;
+	border-top-right-radius: 0.4em 0.4em;
+}
+jogroup > *.last-child {
+	margin-bottom: 0;
+}
+jofooter {
+	display: block;
+	display: -webkit-box;
+
+	width: 100%;
+	-webkit-box-flex: 1;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: stretch;
+	-webkit-box-pack: end;
+	margin: 0;
+}
+jofooter > * {
+	-webkit-box-align: end;
+}
+joshim {
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+	opacity: 0;
+	-webkit-transition: opacity .2s ease;
+}
+joshim.show {
+	display: block;
+	opacity: 1;
+}
+jotoolbar {
+	border-top: 1px solid #777;
+	/*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#eeeeee));*/
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc));
+	padding: 10px 0;
+
+	text-align: center;
+	font-size: 20px;
+	color: #777;
+	text-shadow: #fff 0 1px 0;
+
+	/*font-weight: normal;*/
+	cursor: pointer;
+	outline: none;
+	/*outline-color: transparent;*/
+	padding: 10px 0;
+
+	z-index: 1;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+
+jotoolbar  {
+	-webkit-border-radius: 0;
+}
+
+jopopup {
+	-webkit-border-top-left-radius: 0.5em;
+	-webkit-border-top-right-radius: 0.5em;
+	background-color: #FFFFFF;
+	/*border: 1px solid #777;*/
+	border: 1px solid #555;
+	color: #222222;
+
+	-webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, .6);
+	/*-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);*/
+
+	-webkit-box-flex: 0;
+
+	font-size: 15px;
+	display: block;
+	overflow: hidden;
+	margin: 0 auto;
+
+	-webkit-transition: -webkit-transform 0.4s ease-in, opacity 0.4s ease-in;
+
+	-webkit-transform: scale(0.5);
+
+	max-height: 480px;
+	max-width: 640px;
+	margin: 0 auto;
+	opacity: 0;
+}
+jopopup > jolist > *.select:first-childjopopup > jomenu > *.select:first-child {
+	border-top: none;
+	-webkit-border-radius: 0;
+	-webkit-border-top-right-radius: 20px;
+	-webkit-border-top-left-radius: 20px;
+
+	border-radius: 20px 20px 0 0;
+}
+jopopup > jolist > *:last-child.selectjopopup > jomenu > *:first-child.select {
+	border-bottom: none;
+	-webkit-border-radius: 0;
+	-webkit-border-bottom-right-radius: 20px;
+	-webkit-border-bottom-left-radius: 20px;
+
+	border-radius: 0 0 20px 20px;
+}
+jopopup.show {
+	-webkit-transform: scale(1);
+	opacity: 1;
+}
+jopopup > joscroller {
+	width: 100%;
+}
+jonavbar {
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc));
+	border-bottom: 1px solid #777;
+	display: block;
+	position: relative;
+	margin: 0;
+	padding: 0;
+
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	text-align: center;
+	
+	-webkit-box-flex: 0;
+
+	font-size: x-large;
+	font-weight: bold;
+	color: #777;
+	text-shadow: #fff 0 1px 0;
+
+	cursor: default;
+}
+jonavbar > joview {
+	display: block;
+	text-align: center;
+	padding: 10px 0;
+}
+jonavbar > joflexrow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+jobackbutton {
+
+	padding-top :5px;
+	padding-bottom :5px;
+	padding-left : 10px;
+	padding-right : 10px;
+
+	margin: 7px 7px;
+
+	display: none;
+	text-align: center;
+	font-size: large;
+
+	-webkit-appearance: none;
+
+	line-height: 1.2em;
+
+	border:solid 1px #555;
+
+	-webkit-box-shadow: 1px 1px 1px #fff;
+
+	width: auto;
+
+	/*half rounded*/
+	-webkit-border-radius: 0.4em;
+	/*gray*/
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+
+}
+jobackbutton.focus, jobackbutton.selected {
+	opacity: 0.6;
+	outline: none;
+	border: 2px solid #058cf5;
+
+}
+jobackbutton.active {
+	display: block;
+}
+
+jobackbutton:hover {
+	opacity: 0.6;
+	outline: none;
+	border: 2px solid #058cf5;
+}
+
+
+jonavbar > joflexrow > * {
+	-webkit-box-flex: 1;
+}
+jonavbar > joflexrow > jobackbutton {
+	-webkit-box-flex: 0;
+	max-width: 4em;
+}
+
+
+jopopup > jotitle {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc));
+
+	-webkit-border-top-left-radius: 0.5em;
+	-webkit-border-top-right-radius: 0.5em;
+
+	text-align: center;
+	font-size: 20px;
+	color: #777;
+	text-shadow: #fff 0 1px 0;
+	
+	border-bottom: 1px solid #777;
+	
+	margin-bottom:10px;
+
+}
+
+jopopup > jobutton {
+	background-color: rgba(255, 255, 255, 0.4);
+}
+joflexcol {
+	height: 100%;
+	width: 100%;
+}
+html {
+	-webkit-text-size-adjust: none;
+}
+body {
+	-webkit-backface-visibility: hidden;
+}
