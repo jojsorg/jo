@@ -256,11 +256,31 @@ joDOM = {
 		var t = 0;
 		
 		while (typeof node !== 'undefined' && node && node.parentNode !== window) {
-			t += node.offsetTop;
+			if(node.offsetTop)
+				t += node.offsetTop;
+				
 			node = node.parentNode;
 		}
 
 		return t;
+	},
+	
+	getBounds:function(node) {
+		var top = joDOM.pageOffsetTop(node);
+		var left = joDOM.pageOffsetLeft(node);
+		var bottom = top+node.offsetHeight;
+		var right = left+node.offsetWidth;
+		
+		return {
+			top:top,
+			left:left,
+			bottom:bottom,
+			right:right,
+			center:{
+				x:left+(right-left)/2,
+				y:top+(bottom-top)/2
+			}			
+		};
 	}
 };
 
