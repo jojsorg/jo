@@ -1457,7 +1457,7 @@ joDataSource.prototype = {
 			load: function() {
 				// do an AJAX or SQL call here
 			}
-		}
+		});
 
 	See Class Patterns for more details on this method of "subclassing"
 	in JavaScript.
@@ -1581,9 +1581,9 @@ joProperty.extend(joDataSource, {
 	  in joTime.
 */
 joDatabase = function(datafile, size) {
-	this.openEvent = new joEvent.Subject(this);
-	this.closeEvent = new joEvent.Subject(this);
-	this.errorEvent = new joEvent.Subject(this);
+	this.openEvent = new joSubject(this);
+	this.closeEvent = new joSubject(this);
+	this.errorEvent = new joSubject(this);
 
 	this.datafile = datafile;
 	this.size = size || 256000;
@@ -1655,8 +1655,8 @@ joSQLDataSource = function(db, query, args) {
 	this.query = (typeof query == 'undefined') ? "" : query;
 	this.args = (typeof args == 'undefined') ? [] : args;
 	
-	this.changeEvent = new joEvent.subject(this);
-	this.errorEvent = new joEvent.subject(this);
+	this.changeEvent = new joSubject(this);
+	this.errorEvent = new joSubject(this);
 };
 joSQLDataSource.prototype = {
 	setDatabase: function(db) {

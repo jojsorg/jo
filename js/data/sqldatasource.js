@@ -33,8 +33,8 @@ joSQLDataSource = function(db, query, args) {
 	this.query = (typeof query == 'undefined') ? "" : query;
 	this.args = (typeof args == 'undefined') ? [] : args;
 	
-	this.changeEvent = new joEvent.subject(this);
-	this.errorEvent = new joEvent.subject(this);
+	this.changeEvent = new joSubject(this);
+	this.errorEvent = new joSubject(this);
 };
 joSQLDataSource.prototype = {
 	setDatabase: function(db) {

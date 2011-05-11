@@ -23,9 +23,9 @@
 	  in joTime.
 */
 joDatabase = function(datafile, size) {
-	this.openEvent = new joEvent.Subject(this);
-	this.closeEvent = new joEvent.Subject(this);
-	this.errorEvent = new joEvent.Subject(this);
+	this.openEvent = new joSubject(this);
+	this.closeEvent = new joSubject(this);
+	this.errorEvent = new joSubject(this);
 
 	this.datafile = datafile;
 	this.size = size || 256000;
