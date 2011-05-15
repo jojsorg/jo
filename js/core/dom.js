@@ -187,6 +187,8 @@ joDOM = {
 	},
 	
 	setStyle: function(node, style) {
+		node = joDOM.get(node);
+		
 		if (typeof style === "string") {
 			node.className = style;
 		}

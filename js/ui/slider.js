@@ -53,6 +53,9 @@ joSlider = function(value) {
 	this.vertical = 0;
 	this.moved = false;
 	this.jump = true;
+	
+	this.slideStartEvent = new joSubject();
+	this.slideEndEvent = new joSubject();
 
 	joControl.call(this, null, value);
 };
@@ -133,6 +136,7 @@ joSlider.extend(joControl, {
 		
 		this.inMotion = true;
 		this.moved = false;
+		this.slideStartEvent.fire(this.value);
 
 		if (!this.mousemove) {
 			this.mousemove = joEvent.on(document.body, "mousemove", this.onMove, this);
@@ -202,7 +206,7 @@ joSlider.extend(joControl, {
 		var t = this.container.firstChild.offsetWidth;
 		var w = this.container.offsetWidth - t;
 
-		var x = Math.floor((this.value / this.range) * w);
+		var x = Math.floor((Math.abs(this.min-this.value) / this.range) * w);
 		
 		this.moveTo(x);
 		
@@ -214,7 +218,7 @@ joSlider.extend(joControl, {
 			return;
 
 		joEvent.remove(document.body, "mousemove", this.mousemove);
-		joEvent.remove(document.body, "mouseup", this.mouseup);
+		joEvent.remove(document.body, "mouseup", this.mouseup, true);
 		this.mousemove = null;
 
 		joEvent.stop(e);
@@ -222,6 +226,7 @@ joSlider.extend(joControl, {
 		
 		joDefer(function() {
 			this.reset();
+			this.slideEndEvent.fire(this.value);
 		}, this);
 	},
 	
@@ -267,7 +272,7 @@ joSlider.extend(joControl, {
 		if (!this.container)
 			return;
 			
-		this.initValue(this.value);
+		this.initValue(this.getValue());
 	}
 });
 
