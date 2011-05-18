@@ -97,7 +97,9 @@ joControl.extend(joView, {
 		if (e)
 			joEvent.stop(e);
 
-		this.selectEvent.fire(this.data);
+		if(this.enabled) {
+			this.selectEvent.fire(this.data);
+		}
 		
 		return this;
 	},
