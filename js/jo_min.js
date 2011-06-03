@@ -80,14 +80,7 @@ joYield=joDefer;joCache={cache:{},set:function(key,call,context){if(call)
 this.cache[key]={call:call,context:context||this};return this;},get:function(key){var cache=this.cache[key]||null;if(cache){if(!cache.view)
 cache.view=cache.call.apply(cache.context,arguments);return cache.view;}
 else{return new joView("View not found: "+key);}},clear:function(key){if(typeof this.cache[key]==='object')
-this.cache[key].view=null;return this;}};joChain=function(){this.queue=[];this.active=false;this.addEvent=new joSubject("add",this);this.startEvent=new joSubject("start",this);this.stopEvent=new joSubject("stop",this);this.nextEvent=new joSubject("next",this);this.stop();this.delay=100;};joChain.prototype={add:function(call,context,data){if(!context)
-context=this;if(!data)
-data="";this.queue.push({call:call,context:context,data:data});if(this.active&&!this.timer)
-this.next();},start:function(){this.active=true;this.startEvent.fire();this.next();},stop:function(){this.active=false;if(this.timer)
-window.clearTimeout(this.timer);this.timer=null;this.stopEvent.fire();},next:function(){var nextcall=this.queue.shift();if(!nextcall){this.timer=null;return;}
-this.nextEvent.fire(nextcall);nextcall.call.call(nextcall.context,nextcall.data);if(this.queue.length)
-this.timer=joEvent.yield(this.next,this,this.delay);else
-this.timer=null;}};joClipboard={data:"",get:function(){return joPreference.get("joClipboardData")||this.data;},set:function(clip){this.data=clip;joPreference.set("joClipboardData");}};joDataSource=function(data){this.changeEvent=new joSubject(this);this.errorEvent=new joSubject(this);if(typeof data!=="undefined")
+this.cache[key].view=null;return this;}};joClipboard={data:"",get:function(){return joPreference.get("joClipboardData")||this.data;},set:function(clip){this.data=clip;joPreference.set("joClipboardData");}};joDataSource=function(data){this.changeEvent=new joSubject(this);this.errorEvent=new joSubject(this);if(typeof data!=="undefined")
 this.setData(data);else
 this.data="";};joDataSource.prototype={autoSave:true,data:null,setQuery:function(query){this.query=query;return this;},setAutoSave:function(state){this.autoSave=state;return this;},setData:function(data){var last=this.data;this.data=data;if(data!==last)
 this.changeEvent.fire(data);return this;},getData:function(){return this.data;},getDataCount:function(){return this.getData().length;},getPageCount:function(){if(this.pageSize)
@@ -103,7 +96,7 @@ this.datasource.setProperty(this.p,data);return this;},getData:function(){if(!th
 return null;return this.datasource.getProperty(this.p);},onSourceChange:function(){this.changeEvent.fire(this.getData());}});joDatabase=function(datafile,size){this.openEvent=new joSubject(this);this.closeEvent=new joSubject(this);this.errorEvent=new joSubject(this);this.datafile=datafile;this.size=size||256000;this.db=null;};joDatabase.prototype={open:function(){this.db=openDatabase(this.datafile,"1.0",this.datafile,this.size);if(this.db){this.openEvent.fire();}
 else{joLog("DataBase Error",this.db);this.errorEvent.fire();}
 return this;},close:function(){this.db.close();this.closeEvent.fire();return this;},now:function(offset){var date=new Date();if(offset)
-date.setDate(date.valueOf()+(offset*1000*60*60*24));return date.format("yyyy-mm-dd");}};joSQLDataSource=function(db,query,args){this.db=db;this.query=(typeof query=='undefined')?"":query;this.args=(typeof args=='undefined')?[]:args;this.changeEvent=new joSubject(this);this.errorEvent=new joSubject(this);};joSQLDataSource.prototype={setDatabase:function(db){this.db=db;return this;},setQuery:function(query){this.query=query;return this;},setData:function(data){this.data=data;this.changeEvent.fire();return this;},clear:function(){this.data=[];this.changeEvent.fire();return this;},setParameters:function(args){this.args=args;return this;},execute:function(query,args){this.setQuery(query||"");this.setParameters(args);if(this.query)
+date.setDate(date.valueOf()+(offset*1000*60*60*24));return date.format("yyyy-mm-dd");}};joSQLDataSource=function(db,query,args){this.db=db;this.query=(typeof query==='undefined')?"":query;this.args=(typeof args==='undefined')?[]:args;this.changeEvent=new joSubject(this);this.errorEvent=new joSubject(this);};joSQLDataSource.prototype={setDatabase:function(db){this.db=db;return this;},setQuery:function(query){this.query=query;return this;},setData:function(data){this.data=data;this.changeEvent.fire();return this;},clear:function(){this.data=[];this.changeEvent.fire();return this;},setParameters:function(args){this.args=args;return this;},execute:function(query,args){this.setQuery(query||"");this.setParameters(args);if(this.query)
 this.refresh();return this;},refresh:function(){if(!this.db){this.errorEvent.fire();return this;}
 var self=this;var args;if(arguments.length){args=[];for(var i=0;i<arguments.length;i++)
 args.push(arguments[i]);}
@@ -123,7 +116,7 @@ handler(req.responseText,0);}
 function onerror(){handler(null,true);}
 function handler(data,error){if(call){if(context)
 call.call(context,data,error);else
-call(error,data,error);}}};function joScript(url,call,context){var node=joDOM.create('script');if(!node)
+call(data,error);}}};function joScript(url,call,context){var node=joDOM.create('script');if(!node)
 return;node.onload=onload;node.onerror=onerror;node.src=url;document.body.appendChild(node);function onerror(){handler(true);}
 function onload(){handler(false);}
 function handler(error){if(call){if(context)
@@ -142,7 +135,7 @@ else{var p=url.substr(h.url.length);if(h.context)
 this.loadEvent.fire(h.call.call(h.context,p,url));else
 this.loadEvent.fire(h.call(p,url));}
 return this;},addHandler:function(url,call,context){if(typeof url==='undefined')
-return;var handler={url:url.toLowerCase(),call:call,context:(typeof context!==undefined)?context:null};this.handlers.push(handler);this.handlers=this.handlers.sort(compare);function compare(a,b){if(a.url<b.url)
+return;this.handlers.push({url:url.toLowerCase(),call:call,context:(typeof context!==undefined)?context:null});this.handlers=this.handlers.sort(compare);function compare(a,b){if(a.url<b.url)
 return 1;else if(a.url==b.url)
 return 0;else return-1;}
 return this;},getHandler:function(url){var h=this.handlers;url=url.toLowerCase();for(var i=0,l=h.length;i<l;i++){if(url.indexOf(h[i].url,0)===0)
