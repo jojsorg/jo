@@ -77,7 +77,7 @@ joScroller.extend(joContainer, {
 	transitionEnd: "webkitTransitionEnd",
 	
 	setEvents: function() {
-//		joEvent.capture(this.container, "click", this.onClick, this);
+//		joEvent.capture(this.container, "click", this.onClick, this);	// rjd - added back in to prevent scroll for causing select events to fire on contained controls
 		joEvent.on(this.container, "mousedown", this.onDown, this);
 	},
 	
@@ -133,7 +133,7 @@ joScroller.extend(joContainer, {
 		
 		var y = point.y - this.points[0].y;
 		var x = point.x - this.points[0].x;
-
+		
 //		if (y == 0)
 //			return;
 		
@@ -168,7 +168,7 @@ joScroller.extend(joContainer, {
 
 		joEvent.remove(document.body, "mousemove", this.mousemove, true);
 		joEvent.remove(document.body, "mouseup", this.mouseup, false);
-
+		
 		this.mousemove = null;
 		this.inMotion = false;
 
@@ -188,7 +188,7 @@ joScroller.extend(joContainer, {
 			dy += (this.points[i].y - this.points[i + 1].y);
 			dx += (this.points[i].x - this.points[i + 1].x);
 		}
-
+		
 		var max = 0 - node.offsetHeight + this.container.offsetHeight;
 		var maxx = 0 - node.offsetWidth + this.container.offsetWidth;
 		
@@ -209,10 +209,16 @@ joScroller.extend(joContainer, {
 
 			this.scrollBy(flickx, flick, false);
 
-			joDefer(this.snapBack, this, 3000);
+			if(this.snapBackTimer) {
+				joDefer.cancel(this.snapBackTimer);
+			}
+			this.snapBackTimer = joDefer(this.snapBack, this, 3000);
 		}
-		else {
-			joDefer(this.snapBack, this, 10);
+		else if(dx !== 0 && dy !== 0){
+			if(this.snapBackTimer) {
+				joDefer.cancel(this.snapBackTimer);
+			}
+			this.snapBackTimer = joDefer(this.snapBack, this, 10);
 		}
 
 	},
@@ -313,38 +319,40 @@ joScroller.extend(joContainer, {
 	// called after a flick transition to snap the view
 	// back into our container if necessary.
 	snapBack: function() {
-		var node = this.container.firstChild;
-		var top = this.getTop();
-		var left = this.getLeft();
+        var top, left, dy, dx;
 
-		var dy = top;
-		var dx = left;
+        var node = this.container.firstChild;
+        top = dy = this.getTop();
+        left = dx = this.getLeft();
 
-		var max = 0 - node.offsetHeight + this.container.offsetHeight;
-		var maxx = 0 - node.offsetWidth + this.container.offsetWidth;
+        // a = node dimensions, b = container dimensions
+        var a = {top:top, bottom:top + node.offsetHeight,left:left,right:left + node.offsetWidth,width:node.offsetWidth,height:node.offsetHeight};
+        var b = {top:0, bottom:this.container.offsetHeight,left:0,right:this.container.offsetWidth,width:this.container.offsetWidth,height:this.container.offsetHeight};
 
-		if (this.eventset)
-			joEvent.remove(node, this.transitionEnd, this.eventset);
-		
-		this.eventset = null;
+        if(a.left < b.left && a.right < b.right) {
+            dx = (a.width < b.width) ? b.left : b.width - a.width;
+        } else if((a.right > b.right && a.left > b.left) || a.width < b.width) {
+            dx = b.left;
+        }
 
-		joDOM.removeCSSClass(node, 'flick');
-		
-		if (dy > 0)
-			dy = 0;
-		else if (dy < max)
-			dy = max;
+        if(a.top < b.top && a.bottom < b.bottom) {
+            dy = (a.height < b.height) ? b.top : b.height - a.height;
+        } else if((a.bottom > b.bottom && a.top > b.top) || a.height < b.height) {
+            dy = b.top;
+        }
 
-		if (dx > 0)
-			dx = 0;
-		else if (dx < maxx)
-			dx = maxx;
+        if (this.eventset)
+            joEvent.remove(node, this.transitionEnd, this.eventset, true);
+        
+        this.eventset = null;
 
-		if (dx != left || dy != top) {
-			joDOM.addCSSClass(node, 'flickback');
-			this.moveTo(dx, dy);
-		}
-	},
+        joDOM.removeCSSClass(node, 'flick');
+
+        if (dx != left || dy != top) {
+            joDOM.addCSSClass(node, 'flickback');
+            this.moveTo(dx, dy);
+        }
+    },
 
 	setScroll: function(x, y) {
 		this.horizontal = x ? 1 : 0;
