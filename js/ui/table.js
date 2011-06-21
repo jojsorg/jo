@@ -40,20 +40,41 @@
 	- `getRow()`, `getCol()`
 
 	  Return the current row or column
+
+	- `setOmittCols(array)`
+
+	  Sets the columns whose header is in the passed array be omitted. 
+
 */
 
 joTable = function(data) {
+    this.omittCols = new Array();
+    this.omittIndex = new Array();
 	joList.apply(this, arguments);
 };
+
 joTable.extend(joList, {
 	tagName: "jotable",
 	
+	// With another round of formatItem as overhead because of refresh()
+    setOmittCols: function(omittArray){
+        this.omittCols = omittArray;
+        this.refresh();
+    },
+
 	// default row formatter
 	formatItem: function(row, index) {
 		var tr = document.createElement("tr");
-		
+
 		for (var i = 0, l = row.length; i < l; i++) {
 			var o = document.createElement(index ? "td" : "th");
+
+            if ((this.omittCols.indexOf(row[i]) != -1)) {
+			    this.omittIndex.push(i);
+			}
+			
+			if (this.omittIndex.indexOf(i%l) > -1) continue;
+
 			o.innerHTML = row[i];
 			
 			// this is a little brittle, but plays nicely with joList's select event
@@ -88,6 +109,5 @@ joTable.extend(joList, {
 		var rowsize = this.data[0].length;
 
 		return index % rowsize;
-	}	
+	}
 });
-
