@@ -18,7 +18,11 @@ jsmin < jo.js > jo_min.js
 # echo "Compiling jo.js -> jo_com.js"
 # java -jar ~/bin/compiler.jar --js=jo.js --js_output_file=jo_com.js
 # gzip -c jo_com.js > jo_com.js.gz
+
+if [[ ${1} && -d ${1} ]]; then
+echo "Copying files to test directory"
+cp jo.js jo_min.js ${1}
+fi
+
 cd ..
-echo "Done."
-
-
+echo "Done compiling."
