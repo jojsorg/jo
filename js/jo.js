@@ -150,8 +150,10 @@ if (typeof HTMLElement === 'undefined')
 	HTMLElement = Object;
 
 // no console.log? sad...
-if (typeof console === 'undefined' || typeof console.log !== 'function')
-	console = {log: function(msg) { }};
+if (typeof console === 'undefined')
+	console = { };
+if (typeof console.log !== 'function')
+	console.log = function(msg) { };
 
 // just a place to hang our hat
 jo = {
