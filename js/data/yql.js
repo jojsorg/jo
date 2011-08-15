@@ -70,10 +70,11 @@
 
 */
 
-joYQL = function(query) {
+joYQL = function(query,itemPath) {
 	joDataSource.call(this);
 
 	this.setQuery(query);
+	this.setItemPath(itemPath);
 };
 joYQL.extend(joDataSource, {
 	baseurl: 'http://query.yahooapis.com/v1/public/yql?',
@@ -89,7 +90,21 @@ joYQL.extend(joDataSource, {
 		return this;
 	},
 	
+	setItemPath: function(itemPath) {
+		this.itemPath = itemPath;
+	},
+	
 	load: function(data) {
+		
+		if (this.itemPath) {
+			data.query.results.item = function (p, o) {
+				var p = p.split(".");
+				for(var i = 0; i < p.length; i++)
+					o = (o.hasOwnProperty(p[i])) ? o[p[i]] : undefined;
+				return o;
+			}(this.itemPath,data.query.results);
+		}
+				
 		var results = data.query && data.query.results && data.query.results.item;
 		
 		if (!results)
