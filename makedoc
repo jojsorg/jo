@@ -7,4 +7,4 @@
 
 # back to single file approach; easier to search and read
 #
-../joDoc/jodoc --template ~/Projects/jodocs/singletemplate.html --title "Jo HTML5 Mobile App Framework Documentaion" CONTENTS.mdown ABOUT.mdown README.mdown docs/*.mdown LICENSE.mdown js/core/*.js js/data/*.js js/ui/*.js > ~/Projects/jodocs/docs/index.html 
+../joDoc/jodoc --template ~/Projects/jodocs/singletemplate.html --title "Jo HTML5 Mobile App Framework Documentation" CONTENTS.mdown ABOUT.mdown README.mdown docs/*.mdown LICENSE.mdown js/core/*.js js/data/*.js js/ui/*.js > ~/Projects/jodocs/docs/index.html
