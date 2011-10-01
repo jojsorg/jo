@@ -92,7 +92,7 @@ joContainer.extend(joView, {
 	deactivate: function() {},
 
 	push: function(data) {
-		if (typeof data === 'object') {
+		if (typeof data != 'string') {
 			if (data instanceof Array) {
 				// we have a list of stuff
 				for (var i = 0; i < data.length; i++)
@@ -107,7 +107,7 @@ joContainer.extend(joView, {
 				this.container.appendChild(data);
 			}
 		}
-		else if (typeof data === 'string') {
+		else {
 			// shoving html directly in does work
 			var o = document.createElement("div");
 			o.innerHTML = data;

@@ -88,10 +88,15 @@
 */
 
 // syntactic sugar to make it easier to extend a class
-Function.prototype.extend = function(superclass, proto) {
-	// create our new subclass
-	this.prototype = new superclass();
-
+Function.prototype.extend = function(parent, proto) {
+	//CoffeeScript compliant
+	var that = this;
+	function ctor() { this.constructor = that; }
+  	ctor.prototype = parent.prototype;
+  	that.prototype = new ctor;
+  	that.__super__ = parent.prototype;
+  	
+	
 	// optional subclass methods and properties
 	if (proto) {
 		for (var i in proto)

@@ -121,10 +121,15 @@ joLog = function() {
 */
 
 // syntactic sugar to make it easier to extend a class
-Function.prototype.extend = function(superclass, proto) {
-	// create our new subclass
-	this.prototype = new superclass();
-
+Function.prototype.extend = function(parent, proto) {
+	//CoffeeScript compliant
+	var that = this;
+	function ctor() { this.constructor = that; }
+  	ctor.prototype = parent.prototype;
+  	that.prototype = new ctor;
+  	that.__super__ = parent.prototype;
+  	
+	
 	// optional subclass methods and properties
 	if (proto) {
 		for (var i in proto)
@@ -2599,7 +2604,7 @@ joContainer.extend(joView, {
 	deactivate: function() {},
 
 	push: function(data) {
-		if (typeof data === 'object') {
+		if (typeof data != 'string') {
 			if (data instanceof Array) {
 				// we have a list of stuff
 				for (var i = 0; i < data.length; i++)
@@ -2614,7 +2619,7 @@ joContainer.extend(joView, {
 				this.container.appendChild(data);
 			}
 		}
-		else if (typeof data === 'string') {
+		else {
 			// shoving html directly in does work
 			var o = document.createElement("div");
 			o.innerHTML = data;
