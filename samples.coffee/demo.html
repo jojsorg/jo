@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="format-detection" content="false">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>joTest</title>
+	<link rel="stylesheet" href="../css/jo2.css" type="text/css">
+	<link rel="apple-touch-icon" href="tablet/apple-touch-icon.png">
+</head>
+<body>
+
+</body>
+<script src="coffee-script.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jo_min.js"></script>
+
+<script type="text/coffeescript">
+jo.load()
+
+class JoStackScroller extends joStackScroller
+	constructor:(args)->
+		super args
+		console.log "my mother is joStackScroller"
+
+class JoScreen extends joScreen
+	constructor:(args)->
+		super args
+		console.log "my mother is joScreen"
+		
+class JoButton extends joButton
+	constructor:(args)->
+		super args
+		console.log "my mother is joButton"
+	setData:(args)->
+		super args
+		console.log "Text of button has changed"
+
+class JoTitle extends joTitle
+	constructor:(args)->
+		super args
+		console.log "my mother is joTitle"
+	
+
+class JoCaption extends joCaption
+	constructor:(args)->
+		super args
+		console.log "my mother is joCaption"
+
+class JoDivider extends joDivider
+	constructor:(args)->
+		super args
+		console.log "my mother is joDivider"
+
+class JoCard extends joCard
+	constructor:(args)->
+		super args
+		console.log "my mother is joCard"
+
+
+
+class Form
+    constructor:(title, caption)->
+        @stack = new JoStackScroller
+        @scn = new JoScreen @stack
+        @title = new JoTitle "Jo Rocks !"
+        @caption = new JoCaption caption
+        @divider = new JoDivider
+
+        @button = new JoButton "OK"
+        @button.selectEvent.subscribe ->
+            console.log "OK OK"
+
+        @card = new JoCard [ @title , @caption, @divider, @button]
+
+    show:->
+        @stack.push @card
+
+mainForm = new Form "Hello", "Hello World !!!"
+
+mainForm.button.setData("Click Me !!!")
+
+
+mainForm.show()
+</script>
+
+</html>
