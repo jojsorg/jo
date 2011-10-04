@@ -19,17 +19,7 @@
 <script type="text/coffeescript">
 jo.load()
 
-class JoStackScroller extends joStackScroller
-	constructor:(args)->
-		super args
-		console.log "my mother is joStackScroller"
-
-class JoScreen extends joScreen
-	constructor:(args)->
-		super args
-		console.log "my mother is joScreen"
-		
-class JoButton extends joButton
+class Button extends joButton
 	constructor:(args)->
 		super args
 		console.log "my mother is joButton"
@@ -37,52 +27,27 @@ class JoButton extends joButton
 		super args
 		console.log "Text of button has changed"
 
-class JoTitle extends joTitle
-	constructor:(args)->
-		super args
-		console.log "my mother is joTitle"
-	
 
-class JoCaption extends joCaption
-	constructor:(args)->
-		super args
-		console.log "my mother is joCaption"
+class Application extends joScreen
+	constructor:(title, caption)->
+		console.log "my mother is joScreen"
+		@stack = new joStackScroller
+		super @stack
+		@title = new joTitle title
+		@caption = new joCaption caption
+		@button = new Button "OK"
+		@button.selectEvent.subscribe ->
+			console.log "OK OK"		
+		@card = new joCard [ @title , @caption, new joDivider, @button]
+	    
+	show:->
+		@stack.push @card		
 
-class JoDivider extends joDivider
-	constructor:(args)->
-		super args
-		console.log "my mother is joDivider"
+myApp = new Application "Jo Rocks !", "Hello World !!!"
 
-class JoCard extends joCard
-	constructor:(args)->
-		super args
-		console.log "my mother is joCard"
+myApp.button.setData("Click Me !!!")
 
-
-
-class Form
-    constructor:(title, caption)->
-        @stack = new JoStackScroller
-        @scn = new JoScreen @stack
-        @title = new JoTitle "Jo Rocks !"
-        @caption = new JoCaption caption
-        @divider = new JoDivider
-
-        @button = new JoButton "OK"
-        @button.selectEvent.subscribe ->
-            console.log "OK OK"
-
-        @card = new JoCard [ @title , @caption, @divider, @button]
-
-    show:->
-        @stack.push @card
-
-mainForm = new Form "Hello", "Hello World !!!"
-
-mainForm.button.setData("Click Me !!!")
-
-
-mainForm.show()
+myApp.show()
 </script>
 
 </html>
