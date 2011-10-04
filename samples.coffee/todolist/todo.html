@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="format-detection" content="false">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>TO DO LIST</title>
+	<link rel="stylesheet" href="../../css/bootstrap/jo.bootstrap.css" type="text/css">
+	<link rel="apple-touch-icon" href="tablet/apple-touch-icon.png">
+</head>
+<body>
+
+</body>
+<script src="js/coffee-script.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jo_min.js"></script>
+<script src="js/jo.models.js"></script>
+
+<script type="text/coffeescript">
+jo.load()
+
+# --- Model ---
+class Task extends jo.Model
+	constructor:(args)->
+		super args
+		@store =  name : "JOTODOSTORAGE", local : true
+		@defaults = text : "this is a task !"
+		@
+
+# --- Collection of models ---
+class Tasks extends jo.Models
+	constructor:(args)->
+		super args
+		@store =  (new Task).store
+		@model = Task
+		@
+
+# --- Application GUI ---
+
+#extend joInput
+class Input extends joInput
+	constructor:->
+		super
+		@setStyle (width : "90%")
+	placeholder:(txt)->
+		if txt 
+			@container.setAttribute "placeholder",txt
+		else
+			@container.removeAttribute "placeholder"
+
+#extend joButton
+class Button extends joButton
+	constructor:->
+		super
+		@setStyle (width : "10%")
+		
+#create new control
+class TaskControl extends joFlexrow
+	constructor:(task)->
+		task.setAutoSave true
+		super
+		@id = task.get "id"
+		@push @taskInput = new Input task.link("text")
+		@push @deleteCmd = new Button "<b>Done</b>"
+
+#Prepare main scene (aka application)
+
+scene = new joScreen 
+mainContainer = new joContainer
+flexCol = new joFlexcol
+navBar = new joNavbar
+stack = new joStackScroller
+footer = new joToolbar "Tasks are sorted by name (when loaded)"
+
+scene.push(
+	mainContainer.push [
+		flexCol.push [
+			navBar
+			stack
+		]
+		footer
+	]
+)
+navBar.setStack stack
+
+
+#Prepare main screen
+
+mainScreen = new joCard
+taskGroup = new joGroup
+flexRow = new joFlexrow
+taskInput = new Input
+taskInput.placeholder "Something to do ..."
+addTaskCmd = new Button "<b>Add</b>"
+allTasksGroup = new joGroup
+flexRowAllTasks = new joFlexrow
+taskHeader = new joLabel "<h2>ToDo List</h2>"
+
+
+mainScreen.push [
+	taskGroup.push flexRow.push [
+		taskInput
+		addTaskCmd
+	]
+	allTasksGroup.push flexRowAllTasks.push taskHeader	
+]
+
+# --- Application Controller ---
+#window.tasks = new Tasks
+class ToDoListApp
+	tasks : new Tasks
+	@init:->
+		ToDoListApp::tasks.load().sortBy "text", "ASC"
+		
+		# --- if tasks in storage populate list ---
+		if ToDoListApp::tasks.length() > 0
+			ToDoListApp::tasks.each (task)->
+				#console.log task
+				tmpCtrl = new TaskControl task
+				tmpCtrl.deleteCmd.selectEvent.subscribe ->
+					ToDoListApp.deleteTask(tmpCtrl)
+				allTasksGroup.push allTasksGroup[task.get "id"] = tmpCtrl
+				taskInput.focus().setData ""
+		# --- event ---
+		#add task when click
+		addTaskCmd.selectEvent.subscribe ->
+			ToDoListApp.addTask()
+			
+		# display mainScreen
+		mainScreen.setTitle "Tasks List"
+		stack.push mainScreen
+	
+	@addTask:->
+		task = new Task text:taskInput.getData()
+		ToDoListApp::tasks.add task.save()
+		
+		tmpCtrl = new TaskControl task
+		tmpCtrl.deleteCmd.selectEvent.subscribe ->
+			ToDoListApp.deleteTask(tmpCtrl)
+		#Add control to the list
+		allTasksGroup.push allTasksGroup[task.get "id"] = tmpCtrl
+		
+		taskInput.focus().setData ""
+		
+	@deleteTask:(ctrl)->
+		console.log "Delete TaskID : #{ctrl.id}"
+		ToDoListApp::tasks.remove ToDoListApp::tasks.get(ctrl.id).remove()
+		ctrl.container.parentNode.removeChild ctrl.container
+
+ToDoListApp.init()
+
+# --- Global Scope ---
+
+root = global ? window
+root.ToDoListApp = ToDoListApp
+
+</script>
+
+</html>
