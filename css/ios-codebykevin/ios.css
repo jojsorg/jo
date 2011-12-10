@@ -1,0 +1,951 @@
+/*
+ios theme for joApp. Developed by Philippe Charrière, http://k33g.org/. Modified by Kevin Walzer, http://www.codebykevin.com. Card transitions based on code at http://www.joapp.com/forums/index.php?p=/discussion/233/adjust-transitionss-. Incorporates graphics from the jQTouch project, http://jqtouch.com. (c) 2010, 2011, contributors.
+*/
+
+.no-copy{-webkit-user-select:none;}
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #EEE;
+	word-wrap: break-word;
+	overflow: hidden;
+	font-family: helvetica;
+}
+jobutton,
+joview,
+jolist,
+jolistitem,
+jomenu,
+jomenuitem,
+joexpando,
+joexpandotitle,
+jogroup,
+jocard,
+jostack,
+jotitle,
+jocaption,
+jolabel,
+jodivider,
+joinput,
+input,
+textarea,
+jotextarea,
+jooption,
+jooptionitem,
+jonavbar,
+jocontainer,
+joslider,
+josliderthumb,
+jotoggle {
+ display: block;
+ margin: 0;
+ padding: 0;
+  -webkit-user-select: none;
+}
+
+.noflex {
+	-webkit-box-flex: 0;
+}
+ 
+.flexible {
+    -webkit-box-flex: 1;
+ }
+ 
+.flex {
+	display: block;
+	display: -webkit-box;
+	margin: 0;
+}
+ 
+.listitem {
+	 border-top: 1px solid rgba(0, 0, 0, 0.4);
+	 margin: 0;
+	 padding: 10px;
+	 cursor: pointer;
+}
+ 
+.widgety {
+	color: rgba(255, 255, 255, 0.9);
+	background-color: #7e82a1;
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+}
+
+.stretch-full {
+	 display: block;
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 right: 0;
+	 bottom: 0;
+}
+
+ 
+.widget {
+ margin: 0px 10px 10px 10px;
+}
+ 
+.selected {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+	color: white;
+	font-size: 100%;
+	font-weight: normal;
+ }
+ 
+.focus {
+	background-color: #fff;
+}
+ 
+jooptionitem:last-child {
+	-webkit-border-radius: 0;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-right-width: 1px;
+}
+
+jobutton {
+	display: block;
+	text-align: center;
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+	border: 1px solid rgba(0, 0, 0, 0.8);
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background-image: url(bluebg.png);
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	color: #FFFFFF
+}
+
+jobackbutton.focus, jobackbutton.selected {
+	background-image: url(bluebg_selected.png);
+	
+}
+
+jobackbutton.selected > * {
+	color: #fff;
+}
+
+jobutton.selected > *{
+	color: #fff
+}
+	
+jobackbutton.active {
+	display: block;
+}
+
+jobutton.focus, jobutton.selected {
+	background-image: url(bluebg_selected.png);
+}
+
+jobackbutton.active {
+	display: block;
+}
+
+
+jooption {
+	display: block;
+	display: -webkit-box;
+	margin: 0;
+	box-align: stretch;
+	margin: 0px 10px 5px 5px;
+	-webkit-box-shadow: 1px 1px 1px #fff;
+}
+
+jooptionitem {
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+	border:solid 1px #555;
+	font-weight: normal;
+	cursor: pointer;
+	padding: 10px 0;  
+	-webkit-box-flex: 1;
+	text-align: center;
+	border-right-width: 0;
+	margin: 0;
+}
+
+jooptionitem:first-child {
+  -webkit-border-radius: 0;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+}
+
+jooptionitem:last-child {
+  -webkit-border-radius: 0;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+}
+
+
+jobutton,
+  input,
+  jolabel,
+  textarea,
+  joexpando {
+	margin: 0px 10px 10px 10px;
+}
+
+jotitle {
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+	background-image: none;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.8);
+	padding: 10px;
+	font-size: 100%;
+	margin: 0;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	color: #000000
+}
+
+*:focus {
+ outline: none;
+  }
+  
+jolistitem, jomenuitem {
+	border-top: 1px solid rgba(0, 0, 0, 0.4);
+	margin: 0;
+	padding: 10px;
+	cursor: pointer;
+}
+
+jolistitem.selected, jomenuitem.selected {
+	border-color: #333;
+}
+
+
+jomenuitem:first-child {
+  border-top: none;
+}
+
+jomenuitem:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+
+joselect.focus {
+  background-color: transparent;
+	
+}
+jolist {
+ margin: 0;
+}
+
+joselectlist, joexpandocontent {
+ display: block;
+ border: 1px solid rgba(0, 0, 0, 0.6);
+  border-top: none;
+  -webkit-border-radius: 0;
+  -webkit-border-bottom-right-radius: 0.4em;
+  -webkit-border-bottom-left-radius: 0.4em;
+}
+
+joselectlist > :first-child
+{
+  border-top: none;
+}
+
+joexpando {
+	display: block;
+	padding-bottom: 0px;
+	margin-bottom: 0;
+}
+
+joexpando.open {
+  margin-bottom: 10px;
+}
+
+joexpandocontent {
+  padding-top: 10px;
+}
+
+joselectlist > *:last-child {
+  border-bottom: none;
+  -webkit-border-radius: 0;
+  -webkit-border-bottom-right-radius: 0.4em;
+  -webkit-border-bottom-left-radius: 0.4em;
+}
+
+joselectlist > *:last-child.select {
+  border-bottom: none;
+  -webkit-border-radius: 0;
+  -webkit-border-bottom-right-radius: 0.4em;
+  -webkit-border-bottom-left-radius: 0.4em;
+}
+
+jocard > jolist, jocard > jomenu {
+ margin: 0;
+}
+
+joinput.password, input.password {
+  -webkit-text-security: disc;
+}
+
+joinput,
+  jotextarea,
+  input,
+  textarea {
+
+	cursor: text;
+	display: block;
+	border: 1px solid rgba(0, 0, 0, 0.6);
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin: 0 10px 10px 10px;
+	padding: 9px;
+	background: #fff;
+	color: #CCCCCC
+	white-space: nowrap;
+	overflow: hidden;
+	outline: none;
+	font-family: "Droid Sans", "Helvetica", "Trebuchet MS";
+	font-size: 105%;
+	-webkit-user-select: text;
+	user-select: text;
+	-webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
+}
+
+jolist, jomenu {
+	font-size: 100%;
+	background: white;
+}
+
+jotextarea, textarea {
+  white-space: normal;
+}
+
+joinput.disabled,
+jotextarea.disabled,
+input.disabled,
+textarea.disabled {
+	color: #fff;
+	cursor: text;
+}
+
+joexpandotitle joicon {
+ position: absolute;
+ border: none;
+ display: block;
+ height: 32px;
+ width: 32px;
+ right: 4px;
+ top: 10%;
+ background: url(ios_expando.png) no-repeat;
+  -webkit-transform-origin: 16px 16px 0;
+  -webkit-transform: rotatez(0);
+  -webkit-transition: -webkit-transform 0.2s ease-out;
+
+}
+
+joexpando.open > joexpandotitle joicon {
+  -webkit-transform: rotatez(90deg);
+}
+
+joexpando > *:last-child {
+	height: 0;
+	overflow: hidden;
+	opacity: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	-webkit-transform-style: preserve- 3 d;
+	-webkit-transform-origin: 0 0 0;
+	-webkit-transition: -webkit-transform 0.2s ease-out, opacity 0.2s ease-out, height 0.2s ease-out, overflow 0.2s ease-out;
+}
+
+joexpando.open > *:last-child {
+	height: 100%;
+	overflow: visible;
+	opacity: 1;
+	-webkit-transform: rotatex(0);
+}
+
+joexpando > *:first-child {
+	-webkit-transform: none;
+	opacity: 1;
+	overflow: visible;
+	height: auto;
+}
+
+joexpandotitle {
+	color: #fff;
+	position: relative;
+	background-color: #c5c5c5;
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+	border: 1px solid rgba(0, 0, 0, 0.8);
+	background-image: url(navbar.png);
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 10px;
+	cursor: pointer;
+	text-align: left;
+}
+
+joexpando.open > *:first-child {
+	background-color: #6d6d6d;
+	-webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
+	-o-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
+	-webkit-border-radius: 0;
+	-webkit-border-top-right-radius: 3px;
+	-webkit-border-top-left-radius: 3px;
+	-moz-border-radius: 3px 3px 0 0;
+	border-radius: 3px 3px 0 0;
+	color: #fff;
+}
+
+jolabel, label {
+	margin-bottom: 5px;
+	font-weight: normal;
+	font-size: 100%;
+	color:#000000;
+	text-overflow: ellipsis;
+}
+
+jocaption {
+	margin: 10px;
+	color: #000000;
+}
+
+johtml {
+	display: block;
+	margin: 0 10px 10px 10px;
+	padding: 0;
+}
+
+jodivider {
+	border-top: 1px solid rgba(0, 0, 0, 0.5);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	margin: 0 0 10px 0;
+	text-align: center;
+	height: 0;
+	display: block;
+}
+
+joflexrow > jotoggle {
+  -webkit-box-flex: 0;
+}
+
+jotoggle {
+	cursor: pointer;
+	display: block;
+	margin: 10px 10px 0 10px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	background-color: inherit;
+	background-image: url(shade-top-split.png);
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.6);
+	position: relative;
+	overflow: hidden;
+	width: 90px;
+	}
+
+jotoggle > * {
+	 margin: 0px 10px 10px 10px;
+	color: #000;
+	background-color: #c5c5c5;
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+	border: 1px solid rgba(0, 0, 0, 0.8);
+	background:  -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	border-color: #000;
+	margin: 0;
+	text-align: center;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 10px 0;
+	width: 60px;
+	-webkit-box-shadow: 2px 0 2px rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 0 2px rgba(0, 0, 0, 0.2);
+	-webkit-transform: translatex(0);
+	-webkit-animation-fill-mode: forwards;
+	-webkit-transition: -webkit-transform 2s ease !important;
+
+}
+
+jotoggle.on > * {
+	color: white;
+	font-size:medium;
+	font-weight:  bold;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+	-webkit-transform: translatex(28px);
+}
+
+josliderthumb {
+	position: absolute;
+	height: 18px;
+	width: 40px;
+	color: rgba(255, 255, 255, 0.9);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee));
+	font-weight: normal;
+	cursor: pointer;
+	outline: none;
+	outline-color: transparent;
+	padding: 10px 0;
+	border: 1px solid rgba(0, 0, 0, 0.8);
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	border-radius: 3px;
+}
+
+joslider {
+	margin: 10px;
+	position: relative;
+	height: 40px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	background-image: url(shade-top-split.png);
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.6);
+}
+
+jotable {
+	display: block;
+	margin: 0 10px;
+}
+
+tr {
+	margin: 0;
+}
+
+th {
+	text-align: left;
+	padding: 5px;
+}
+
+td {
+	padding: 5px;
+}
+
+jolabel.left {
+	margin-top: 10px;
+	padding: 9px 0;
+}
+
+.disabled {
+	opacity: .2;
+ }
+ 
+jotoolbar {
+ 	padding: 10px;
+}
+
+joflexrow {
+	display: block;
+	display: -webkit-box;
+	margin: 0;
+	width: 100%;
+}
+
+joflexrow > * {
+	-webkit-box-flex: 1;
+	margin-right: 0;
+	position: relative;
+}
+
+joflexrow > *:last-child {
+  	margin-right: 10px;
+}
+
+joflexcol {
+	display: block;
+	display: -webkit-box;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: stretch;
+	margin: 0;
+}
+
+joflexcol > * {
+  -webkit-box-flex: 1;
+}
+
+jotitle + joflexcol, jotitle + joflexrow {
+	margin-top: 10px;
+}
+
+jostack {
+ height: 100%;
+  -webkit-perspective: 400px;
+}
+
+jostack {
+  -webkit-transition: opacity 0.3s ease-out;
+}
+
+jostack > * {
+	-webkit-transform-origin: 50% 100% 0;
+	-webkit-transform: rotatez(0) translatez(0);
+	-webkit-transition: -webkit-transform 0.3s ease-out, z-index 0.3s ease-out, height 0s ease, overflow 0s ease;	
+}
+
+jostack > .next {
+	z-index: -1;
+	-webkit-transform: translatex(100%) translatez(0);
+	height: 100%;
+	overflow: hidden;
+}
+jostack > .prev {
+	z-index: 1;
+	-webkit-transform: translatex(-100%) translatez(0);;
+	height: 100%;
+	overflow: hidden;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+jocard {
+	width: 100%;
+	min-height: 100%;
+	padding: 0;
+	margin: 0;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: stretch;
+	background: #EEE;
+}
+
+jocard > * {
+  /*	display: block; */
+
+}
+
+jocard > *:last-child {
+    margin-bottom: 10px;
+}
+
+joscroller {
+	position: absolute;
+	display: block;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+	-webkit-transform: translate3d(0, 0, 0);
+}
+
+joscroller > * {
+ position: absolute;
+	top: 0;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-transition: -webkit-transform 0s ease;
+}
+
+.flick {
+  	-webkit-transition: -webkit-transform 1.8s cubic-bezier(0, 0.2, 0, 1);
+ }
+ 
+.flickback {
+  	-webkit-transition: -webkit-transform 0.2s cubic-bezier(0, 0, 0.4, 1);
+ }
+ 
+.flickfast {
+  	-webkit-transition: -webkit-transform 0.5s cubic-bezier(0, 0.2, 0, 1);
+ }
+ 
+jocontainer {
+	margin: 0;
+	display: block;
+	position: relative;
+}
+
+jogroup {
+	-webkit-box-shadow: rgba(255, 255, 255, 0.699219) 0px 1px 0px;
+	background-color: #F7F7F7;
+	padding-top:15px; padding-right:10px;padding-left:10px; padding-bottom: 15px;
+	margin-left:10px; margin-top:10px; margin-right:10px; margin-bottom:10px;
+	border: 1px solid #DDD;
+	border-bottom-left-radius: 0.4em 0.4em;
+	border-bottom-right-radius: 0.4em 0.4em;
+	border-top-left-radius: 0.4em 0.4em;
+	border-top-right-radius: 0.4em 0.4em;
+}
+
+jogroup > *.last-child {
+  margin-bottom: 0;
+}
+
+jofooter {
+	border-bottom: 1px solid #777;
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	display: block;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	text-align: center;
+	-webkit-box-flex: 0;	
+	font-size: 100%
+	font-weight: normal;
+	color: #fff;
+	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;	
+	cursor: default;
+}
+
+jofooter > * {
+  	-webkit-box-align: end;
+}
+
+joshim {
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+	opacity: 0;
+	-webkit-transition: opacity .2s ease;
+}
+
+joshim.show {
+	display: block;
+	opacity: 1;
+}
+
+jotoolbar {
+	border-top: 1px solid rgba(0, 0, 0, 0.8);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc));
+	padding: 10px 0;
+	text-align: center;
+	font-size: 100%;
+	color: #777;
+	cursor: pointer;
+	outline: none;
+	z-index: 1;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	background-image: url(navbar.png);
+	border-bottom: 1px solid #777;
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	display: block;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	text-align: center;
+	z-index: 1;
+	-webkit-box-flex: 0;
+	font-size: 100%
+	font-weight:  normal;
+	color: #fff;
+	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
+	cursor: default;
+	}
+
+jotoolbar  {
+  	-webkit-border-radius: 0;
+}
+
+jopopup {
+	-webkit-box-flex: 0;
+	box-flex: 0;
+	display: block;
+	overflow: hidden;
+	margin: 0 auto;
+	border: 2px solid #FFFFFF;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	*background-color: #c5c5c5;
+	color: #FFF;
+	background-image: url(bluebg_selected.png);
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-transition: -webkit-transform 0.4s ease-in, opacity 0.4s ease-in;
+	-webkit-transform: scale(0.5);
+	max-width: 280px;
+	margin: 0 auto;
+	opacity: 0;
+}
+
+jopopup > jotitle {
+	color: #fff;
+	border-top:  none;
+	border-color: black;
+	margin-bottom: 10px;
+	-webkit-border-radius: 0;
+	-webkit-border-top-right-radius: 2px;
+	-webkit-border-top-left-radius: 2px;
+	border-radius: 2px 2px 0 0;
+	background-image: url(bluebg_selected.png);
+	background-color: #c5c5c5;
+	background-color: #FFFFFF;
+}
+
+jopopup > jolist > *.select:first-childjopopup > jomenu > *.select:first-child {
+	border-top: none;
+	-webkit-border-radius: 0;
+	-webkit-border-top-right-radius: 10px;
+	-webkit-border-top-left-radius: 10px;
+	border-radius: 10px 10px 0 0;
+}
+
+jopopup > jolist > *:last-child.selectjopopup > jomenu > *:first-child.select {
+	border-bottom: none;
+	-webkit-border-radius: 0;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	border-radius: 0 0 10px 10px;
+}
+
+jopopup.show {
+	-webkit-transform: scale(1);
+	opacity: 1;
+}
+
+jopopup > joscroller {
+ 	width: 100%;
+}
+
+jopopup > jobutton {
+  	background-image: url(bluebg.png)
+	}
+
+jonavbar {
+	background-image: url(navbar.png);
+	border-bottom: 1px solid #777;
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	display: block;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	text-align: center;
+	-webkit-box-flex: 0;
+	font-size: 120%
+	font-weight: bold;
+	color: #fff;
+	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
+	cursor: default;
+}
+
+jonavbar > joview {
+	display: block;
+	text-align: center;
+	padding: 10px 0;
+}
+
+jonavbar > joflexrow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+jobackbutton {
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	padding: 6px 10px 4px 10px;
+	margin: 5px 10px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.6);
+	display: none;
+	color: #ddd;
+	background-image: url(bluebg.png);
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
+}
+
+jobackbutton.focus, jobackbutton.selected {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+jobackbutton.active {
+ 	display: block;
+}
+
+
+jonavbar > joflexrow > * {
+  -webkit-box-flex: 1;
+}
+jonavbar > joflexrow > jobackbutton {
+	-webkit-box-flex: 0;
+	max-width: 4em;
+}
+
+joflexcol {
+	height: 100%;
+	width: 100%;
+}
+html {
+	-webkit-text-size-adjust: none;
+}
+body {
+	-webkit-backface-visibility: hidden;
+}
+
+
