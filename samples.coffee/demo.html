@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="format-detection" content="false">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>joTest</title>
+	<link rel="stylesheet" href="../css/jo2.css" type="text/css">
+	<link rel="apple-touch-icon" href="tablet/apple-touch-icon.png">
+</head>
+<body>
+
+</body>
+<script src="js/coffee-script.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jo.js"></script>
+
+<script type="text/coffeescript">
+jo.load()
+
+class Button extends joButton
+	constructor:(args)->
+		super args
+		console.log "my mother is joButton"
+	setData:(args)->
+		super args
+		console.log "Text of button has changed"
+
+
+class Application extends joScreen
+	constructor:(title, caption)->
+		console.log "my mother is joScreen"
+		@stack = new joStackScroller
+		super @stack
+		@title = new joTitle title
+		@caption = new joCaption caption
+		@button = new Button "OK"
+		@button.selectEvent.subscribe ->
+			console.log "OK OK"		
+		@card = new joCard [ @title , @caption, new joDivider, @button]
+	    
+	show:->
+		@stack.push @card		
+
+myApp = new Application "Jo Rocks !", "Hello World !!!"
+
+myApp.button.setData("Click Me !!!")
+
+myApp.show()
+</script>
+
+</html>

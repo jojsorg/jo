@@ -121,10 +121,15 @@ joLog = function() {
 */
 
 // syntactic sugar to make it easier to extend a class
-Function.prototype.extend = function(superclass, proto) {
-	// create our new subclass
-	this.prototype = new superclass();
-
+Function.prototype.extend = function(parent, proto) {
+	//CoffeeScript compliant
+	var that = this;
+	function ctor() { this.constructor = that; }
+  	ctor.prototype = parent.prototype;
+  	that.prototype = new ctor;
+  	that.__super__ = parent.prototype;
+  	
+	
 	// optional subclass methods and properties
 	if (proto) {
 		for (var i in proto)
@@ -2599,29 +2604,36 @@ joContainer.extend(joView, {
 	deactivate: function() {},
 
 	push: function(data) {
-		if (typeof data === 'object') {
-			if (data instanceof Array) {
-				// we have a list of stuff
-				for (var i = 0; i < data.length; i++)
-					this.push(data[i]);
+		if(data.components) {
+			for (var i = 0; i < data.components.length; i++) {
+				this.push(data.components[i].kind);
+				this[data.components[i].name] = data.components[i].kind;
 			}
-			else if (data instanceof joView && data.container !== this.container) {
-				// ok, we have a single widget here
-				this.container.appendChild(data.container);
+		} else {
+			if (typeof data != 'string') {
+				if (data instanceof Array) {
+					// we have a list of stuff
+					for (var i = 0; i < data.length; i++)
+						this.push(data[i]);
+				}
+				else if (data instanceof joView && data.container !== this.container) {
+					// ok, we have a single widget here
+					this.container.appendChild(data.container);
+				}
+				else if (data instanceof HTMLElement) {
+					// DOM element attached directly
+					this.container.appendChild(data);
+				}
 			}
-			else if (data instanceof HTMLElement) {
-				// DOM element attached directly
-				this.container.appendChild(data);
+			else {
+				// shoving html directly in does work
+				var o = document.createElement("div");
+				o.innerHTML = data;
+				this.container.appendChild(o);
 			}
-		}
-		else if (typeof data === 'string') {
-			// shoving html directly in does work
-			var o = document.createElement("div");
-			o.innerHTML = data;
-			this.container.appendChild(o);
+			return this;
 		}
 		
-		return this;
 	},
 	
 	getTitle: function() {
