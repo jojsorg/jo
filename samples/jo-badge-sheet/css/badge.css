@@ -1,0 +1,22 @@
+nav > ul > li {position:relative;}
+.badges {background: position: relative}
+.badge  
+{  position:absolute; 
+   top:1px; 
+   right:1px; 
+   background: red;  
+   width: 16px;  
+   height: 16px;  
+   z-index: 20000;
+   border: 0.15em solid #ffffff; 
+  -webkit-border-radius: 9px;
+  line-height: 16px;
+   color: #ffffff; 
+   font-size: 90%; 
+   text-shadow: none; 
+   font-weight: bold; 
+   font-family: helvetica; 
+  text-align: center;
+  min-width: 16px;
+  width: auto;
+}

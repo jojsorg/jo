@@ -202,16 +202,17 @@ jotitle {
 	outline: none;
 	outline-color: transparent;
 	padding: 10px 0;
-	background-image: none;
+	background-image: url(navbar.png);
 	text-align: center;
-	color: rgba(255, 255, 255, 0.8);
 	padding: 10px;
-	font-size: 100%;
 	margin: 0;
 	border-top: none;
 	border-left: none;
 	border-right: none;
-	color: #000000
+	font-size: 100%
+	font-weight:  normal;
+	color: #fff;
+	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
 }
 
 *:focus {
@@ -624,6 +625,7 @@ jostack > * {
 	-webkit-transition: -webkit-transform 0.3s ease-out, z-index 0.3s ease-out, height 0s ease, overflow 0s ease;	
 }
 
+
 jostack > .next {
 	z-index: -1;
 	-webkit-transform: translatex(100%) translatez(0);
@@ -632,10 +634,11 @@ jostack > .next {
 }
 jostack > .prev {
 	z-index: 1;
-	-webkit-transform: translatex(-100%) translatez(0);;
+	-webkit-transform: translatex(-100%) translatez(0);
 	height: 100%;
 	overflow: hidden;
 }
+
 
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -947,3 +950,5 @@ html {
 body {
 	-webkit-backface-visibility: hidden;
 }
+
+

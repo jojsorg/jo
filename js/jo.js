@@ -1973,10 +1973,11 @@ joPreference = joRecord;
 
 */
 
-joYQL = function(query) {
+joYQL = function(query,itemPath) {
 	joDataSource.call(this);
 
 	this.setQuery(query);
+	this.setItemPath(itemPath);
 };
 joYQL.extend(joDataSource, {
 	baseurl: 'http://query.yahooapis.com/v1/public/yql?',
@@ -1992,7 +1993,21 @@ joYQL.extend(joDataSource, {
 		return this;
 	},
 	
+	setItemPath: function(itemPath) {
+		this.itemPath = itemPath;
+	},
+	
 	load: function(data) {
+		
+		if (this.itemPath) {
+			data.query.results.item = function (p, o) {
+				var p = p.split(".");
+				for(var i = 0; i < p.length; i++)
+					o = (o.hasOwnProperty(p[i])) ? o[p[i]] : undefined;
+				return o;
+			}(this.itemPath,data.query.results);
+		}
+				
 		var results = data.query && data.query.results && data.query.results.item;
 		
 		if (!results)
@@ -4002,7 +4017,30 @@ joScroller.extend(joContainer, {
 		return joContainer.prototype.setData.apply(this, arguments);
 	}
 });
-/**
+
+/*
+ * A convenience method: give this joScroller a scrollbar. It only works if 
+ * there are already contents, as making a scrollbar the first child of the 
+ * container node would cause interesting undesirable behavior.
+ */
+joScroller.prototype.addScrollbar = function(joscrollbar) {
+    if( this.container.firstChild && joscrollbar instanceof joScrollbar ) {
+        this.push(joscrollbar);
+        this.scrollbar = joscrollbar;
+        joscrollbar.scroller = this;
+    }
+    return this;
+}
+
+joScroller.prototype.originalSetPosition = joScroller.prototype.setPosition;
+
+joScroller.prototype.setPosition = function(x, y, node) {
+    if( this.scrollbar ) {
+        scaled = y / window.innerHeight;
+        this.scrollbar.setSliderPosition(scaled);
+    }
+    return this.originalSetPosition(x, y, node);
+}/**
 	joDivider
 	=========
 	
@@ -6348,3 +6386,101 @@ joSlider.extend(joControl, {
 	}
 });
 
+var joScrollbar = function(data, hasTabBar) {
+  joView.apply(this, arguments);
+  this.hasTabBar = hasTabBar;
+  this.scroller = null;
+  this.calibrate();
+};
+joScrollbar.extend(joView, {
+  tagName: "joscrollbar",
+
+  createContainer: function() {
+    var o = joDOM.create(this.tagName);
+
+    if (o)
+      o.setAttribute("tabindex", "1");
+
+    var w = joDOM.create("joscrollbarpadding");
+    o.appendChild(w);
+        
+    var s = joDOM.create("joscrollbarslider");
+    w.appendChild(s);
+    this.slider = s;
+
+    return o;
+  },
+    
+  /*
+   * Move the scrollbar slider.
+   *
+   * scaledPosition - how far to move expressed as a fraction of 
+   * visible page size/scrollbar size
+   */
+  setSliderPosition: function(scaledPosition) {
+    var y = -1 * Math.floor(scaledPosition * this.slider.clientHeight);
+    this.slider.style.webkitTransform = "translate3d(0, " + y + "px, 0)";
+  },
+    
+  /*
+   * We must size the scrollbar correctly: this function must be called 
+   * after the scrollbar is inserted into the DOM, and every time the 
+   * page changes size - e.g. on orientation change.
+   *
+   * a) Set the height of the joScrollbar to a useful size
+   * b) Set the relative height of the inner slider by looking at the window 
+   * and viewport height.
+   */
+  calibrate: function() {
+    if( !this.scroller ) {
+      return;
+    }; 
+        
+    // find the jocard element so we can measure its height
+    var view = null;
+    for( var i = 0, l = this.scroller.container.children.length; i < l; i++ ) {
+      if( this.scroller.container.children[i].tagName == "JOCARD" ) {
+        view = this.scroller.container.children[i];
+      }
+    }
+    if( !view ) {
+      // the thing is not in the DOM yet, so do nothing;
+      return;
+    }
+        
+    var viewportHeight = window.innerHeight;
+    var viewportWidth = window.innerWidth;
+    var viewHeight = view.clientHeight; 
+
+    if( this.hasTabBar ) {
+      // 59px is the height of the tab bar in iOS; if you are replicating 
+      // that with a joToolbar, then you need to account for its height 
+      // in figuring this lot out, otherwise you'll be noticably off.
+      viewHeight -= 59;
+    }
+        
+    // some fudge factors to get the scrollbar entirely in the visible page, 
+    // below the header and above the footer
+    if( viewportHeight > viewportWidth ) {
+      var heightFactor = 0.75;
+    } else {
+      var heightFactor = 0.65;
+    }
+        
+    var setHeight = Math.floor(viewportHeight * heightFactor);
+    this.container.style.height = "" + setHeight + "px";
+    this.container.firstChild.style.height = "" + (setHeight - 10) + "px";
+    
+    var scrollerHeight = this.container.clientHeight;
+    var sliderHeight = Math.floor(viewportHeight * (scrollerHeight - 10) / viewHeight);
+    this.slider.style.height = "" + sliderHeight + "px";
+        
+    if( sliderHeight < scrollerHeight - 10 ) {
+      this.setStyle("active");
+    } else {
+      this.setStyle("inactive");
+    }
+        
+  }
+    
+});
