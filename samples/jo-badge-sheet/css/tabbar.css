@@ -26,6 +26,7 @@ jotabbar > jotab {
     outline-color: transparent;
     padding: 10px 30px;
     width: auto;
+    width: 30px;
     background-position:center;
     background-size: auto;
     -webkit-background-size: auto;
@@ -33,6 +34,8 @@ jotabbar > jotab {
     opacity: 0.9; 
     color: white;
     position: relative;
+    posiiton: absolute;
+	-webkit-background-size: 32px 32px;
 }
 
 jotab:first-child {
@@ -51,52 +54,44 @@ jotab.selected {
 	background-position: center;
 	background-size: auto;
 	-webkit-background-size:auto;
+	-webkit-background-size: 32px 32px;
 	opacity: 0.9;
 }
 
 .doc {
-    background-image: url("document_alt_stroke_24x32.png");
+    background-image: url("document_alt_stroke.png");
 }
 
 .about {
-    background-image : url("book_32x24.png");
+    background-image: url("book_alt2.png");
 }
 
 /* Badge CSS based on code at http://stackoverflow.com/questions/7885160/jquerymobile-custom-navigation.*/
 
 .badge  {  
     position:relative; 
-    top: -9px; 
+    top: -15px; 
     right: -15px; 
     background: red;  
     width: 16px;  
     height: 16px;  
     z-index: 20000;
-    border: 0.15em solid #ffffff; 
+    border: 0.20em solid #ffffff; 
     -webkit-border-radius: 9px;
     line-height: 16px;
     color: #ffffff; 
-    font-size: 90%; 
+    font-size: 80%; 
     text-shadow: none; 
     font-weight: bold; 
     font-family: helvetica; 
     text-align: center;
     min-width: 16px;
+    max-width: 45px;
     width: auto;
-    display: inline-block; 
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
-/*These are the CSS classes for the action-sheet animation.*/
-jostack > .up {
-	z-index: -1;
-	-webkit-transform: translatey(100%) translatez(0);
-	height: 100%;
-	overflow: hidden;
-}
-jostack > .down {
-	z-index: 1;
-	-webkit-transform: translatey(-100%) translatez(0);
-	height: 100%;
-	overflow: hidden;
-}

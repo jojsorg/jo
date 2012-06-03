@@ -1,5 +1,5 @@
 /*
-ios theme for joApp. Developed by Philippe Charrière, http://k33g.org/. Modified by Kevin Walzer, http://www.codebykevin.com. Card transitions based on code at http://www.joapp.com/forums/index.php?p=/discussion/233/adjust-transitionss-. Incorporates graphics from the jQTouch project, http://jqtouch.com. (c) 2010, 2011, contributors.
+ios theme for joApp. Developed by Philippe Charrière, http://k33g.org/. Modified by Kevin Walzer, http://www.codebykevin.com. Card transitions based on code at http://www.joapp.com/forums/index.php?p=/discussion/233/adjust-transitionss-. Incorportes CSS gradients and images from http://forrst.com/posts/iPhone_style_button_CSS-ea4, http://www.noupe.com/design/the-mobile-web-css-image-replacement-for-retina-display-devices.html, and https://github.com/cheeaun/hnmobile. (c) 2010, 2011, 2012 contributors.
 */
 
 .no-copy{-webkit-user-select:none;}
@@ -120,16 +120,25 @@ jobutton {
 	-webkit-background-size: 100% 100%;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	background-image: url(bluebg.png);
-	background-repeat: repeat-x;
-	background-position: top left;
-	background-size: 100% 100%;
-	-webkit-background-size: 100% 100%;
-	color: #FFFFFF
+  color: #fff;
+    background: none;
+    background-image: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0, #8ea4c1),
+        color-stop(0.5, #5877a2),
+        color-stop(0.5, #476999),
+        color-stop(1, #4a6c9b));
+    -webkit-border-radius: 6px;
+    border: 1px solid #45505d;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .25),
+                        0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 jobackbutton.focus, jobackbutton.selected {
-	background-image: url(bluebg_selected.png);
+        background-image: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0, #7d88a5),
+        color-stop(0.5, #3a4e78),
+        color-stop(0.5, #273f6d),
+        color-stop(1, #273f6d));
 	
 }
 
@@ -146,7 +155,13 @@ jobackbutton.active {
 }
 
 jobutton.focus, jobutton.selected {
-	background-image: url(bluebg_selected.png);
+    color: #fff;
+    background: none;
+    background-image: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0, #7d88a5),
+        color-stop(0.5, #3a4e78),
+        color-stop(0.5, #273f6d),
+        color-stop(1, #273f6d));  
 }
 
 jobackbutton.active {
@@ -202,16 +217,20 @@ jotitle {
 	outline: none;
 	outline-color: transparent;
 	padding: 10px 0;
-	background-image: url(navbar.png);
+	background-image: none;
 	text-align: center;
+	color: rgba(255, 255, 255, 0.8);
 	padding: 10px;
+	font-size: 100%;
 	margin: 0;
 	border-top: none;
 	border-left: none;
 	border-right: none;
-	font-size: 100%
-	font-weight:  normal;
-	color: #fff;
+	color: #FFF;
+	background-image:  -webkit-gradient(linear, 
+			0% 0%, 0% 50%, 
+			from(rgba(176, 188, 205, 1)), 
+			to(rgba(129, 149, 175, 1)));
 	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
 }
 
@@ -257,8 +276,7 @@ joselectlist, joexpandocontent {
   -webkit-border-bottom-left-radius: 0.4em;
 }
 
-joselectlist > :first-child
-{
+joselectlist > :first-child {
   border-top: none;
 }
 
@@ -344,14 +362,16 @@ joexpandotitle joicon {
  position: absolute;
  border: none;
  display: block;
- height: 32px;
- width: 32px;
+ height: 27px;
+ width: 31px;
  right: 4px;
  top: 10%;
- background: url(ios_expando.png) no-repeat;
+/*Put in high-resolution image, scale down via webkit-background-size: works in both retina and standard displays.*/
+ background: url(ios_expando_retina.png) no-repeat;
   -webkit-transform-origin: 16px 16px 0;
   -webkit-transform: rotatez(0);
   -webkit-transition: -webkit-transform 0.2s ease-out;
+  -webkit-background-size: 27px 31px;
 
 }
 
@@ -394,7 +414,13 @@ joexpandotitle {
 	outline-color: transparent;
 	padding: 10px 0;
 	border: 1px solid rgba(0, 0, 0, 0.8);
-	background-image: url(navbar.png);
+/*	background-image: url(navbar.png);*/
+	background-image:  -webkit-gradient(linear, 
+			0% 0%, 0% 50%, 
+			from(rgba(176, 188, 205, 1)), 
+			to(rgba(129, 149, 175, 1)));
+		background: -webkit-linear-gradient(top,  #c2cbd7 0%,#8fa0b6 2%,#8b9cb2 19%,#728399 79%,#6c7d93 100%); /* Chrome10+,Safari5.1+ */
+
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-size: 100% 100%;
@@ -459,7 +485,7 @@ jotoggle {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	background-color: inherit;
-	background-image: url(shade-top-split.png);
+	background-image: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-size: 100% 100%;
@@ -535,7 +561,7 @@ joslider {
 	height: 40px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
-	background-image: url(shade-top-split.png);
+	background-image: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-size: 100% 100%;
@@ -625,7 +651,6 @@ jostack > * {
 	-webkit-transition: -webkit-transform 0.3s ease-out, z-index 0.3s ease-out, height 0s ease, overflow 0s ease;	
 }
 
-
 jostack > .next {
 	z-index: -1;
 	-webkit-transform: translatex(100%) translatez(0);
@@ -634,11 +659,10 @@ jostack > .next {
 }
 jostack > .prev {
 	z-index: 1;
-	-webkit-transform: translatex(-100%) translatez(0);
+	-webkit-transform: translatex(-100%) translatez(0);;
 	height: 100%;
 	overflow: hidden;
 }
-
 
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -764,7 +788,6 @@ joshim.show {
 
 jotoolbar {
 	border-top: 1px solid rgba(0, 0, 0, 0.8);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc));
 	padding: 10px 0;
 	text-align: center;
 	font-size: 100%;
@@ -777,7 +800,7 @@ jotoolbar {
 	left: 0;
 	right: 0;
 	text-align: center;
-	background-image: url(navbar.png);
+	background: -webkit-linear-gradient(top,  #c2cbd7 0%,#8fa0b6 2%,#8b9cb2 19%,#728399 79%,#6c7d93 100%); /* Chrome10+,Safari5.1+ */
 	border-bottom: 1px solid #777;
 	background-repeat: repeat-x;
 	background-position: top left;
@@ -814,9 +837,13 @@ jopopup {
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	*background-color: #c5c5c5;
+	background-color: #c5c5c5;
 	color: #FFF;
-	background-image: url(bluebg_selected.png);
+    background-image: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0, #7d88a5),
+        color-stop(0.5, #3a4e78),
+        color-stop(0.5, #273f6d),
+        color-stop(1, #273f6d));  
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-size: 100% 100%;
@@ -836,8 +863,11 @@ jopopup > jotitle {
 	-webkit-border-top-right-radius: 2px;
 	-webkit-border-top-left-radius: 2px;
 	border-radius: 2px 2px 0 0;
-	background-image: url(bluebg_selected.png);
-	background-color: #c5c5c5;
+	    background-image: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0, #7d88a5),
+        color-stop(0.5, #3a4e78),
+        color-stop(0.5, #273f6d),
+        color-stop(1, #273f6d));
 	background-color: #FFFFFF;
 }
 
@@ -867,11 +897,19 @@ jopopup > joscroller {
 }
 
 jopopup > jobutton {
-  	background-image: url(bluebg.png)
+  /*	background-image: url(bluebg.png)*/
+	   background-image: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0, #8ea4c1),
+        color-stop(0.5, #5877a2),
+        color-stop(0.5, #476999),
+        color-stop(1, #4a6c9b));
 	}
 
 jonavbar {
-	background-image: url(navbar.png);
+	background-image:  -webkit-gradient(linear, 
+			0% 0%, 0% 50%, 
+			from(rgba(176, 188, 205, 1)), 
+			to(rgba(129, 149, 175, 1)));
 	border-bottom: 1px solid #777;
 	background-repeat: repeat-x;
 	background-position: top left;
@@ -908,23 +946,34 @@ jonavbar > joflexrow {
 }
 jobackbutton {
 	border: 1px solid rgba(0, 0, 0, 0.3);
-	padding: 6px 10px 4px 10px;
+	padding: 4px 10px 4px 10px;
 	margin: 5px 10px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	-webkit-box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.6);
 	display: none;
 	color: #ddd;
-	background-image: url(bluebg.png);
-	background-repeat: repeat-x;
-	background-position: top left;
-	background-size: 100% 100%;
-	-webkit-background-size: 100% 100%;
-	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
+ color: #fff;
+    background: none;
+    background-image: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0, #8ea4c1),
+        color-stop(0.5, #5877a2),
+        color-stop(0.5, #476999),
+        color-stop(1, #4a6c9b));
+    -webkit-border-radius: 6px;
+    border: 1px solid #45505d;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .25),
+                        0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 jobackbutton.focus, jobackbutton.selected {
-	background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+    background: none;
+    background-image: -webkit-gradient(linear, left top, left bottom,
+        color-stop(0, #7d88a5),
+        color-stop(0.5, #3a4e78),
+        color-stop(0.5, #273f6d),
+        color-stop(1, #273f6d));
 }
 
 jobackbutton.active {
