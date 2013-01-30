@@ -21,14 +21,15 @@ del jo_core.js
 del jo_data.js
 del jo_ui.js
 
-if exist jsmin.exe goto minify
+for %%J in (jsmin.exe) do set JSMIN=%%~dp$PATH:Jjsmin.exe
+if not "%JSMIN%"=="" goto minify
 echo "jsmin not found, skipping minification."
 cd ..
 goto end
 
 :minify
 echo "Minifying js\jo.js -> js\jo_min.js"
-jsmin < jo.js > jo_min.js
+%JSMIN% < jo.js > jo_min.js
 cd ..
 goto end
 

@@ -85,7 +85,7 @@ joStackScroller.extend(joStack, {
 		if (this.index > 0)
 			this.switchScroller();
 
-		joStack.prototype.forward.call(this);
+		joStack.prototype.back.call(this);
 		
 		return this;
 	},
