@@ -1,4 +1,4 @@
-/*Tab bar CSS based on code from http://tile5geochat.appspot.com/.*/
+/*Tab bar CSS based on code from http://tile5geochat.appspot.com/.  Action sheet CSS based on code from https://github.com/hiroprotagonist/jquery.mobile.actionsheet.*/
 
 jotabbar {
     -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .8);
@@ -35,7 +35,7 @@ jotabbar > jotab {
     color: white;
     position: relative;
     posiiton: absolute;
-	-webkit-background-size: 32px 32px;
+    -webkit-background-size: 32px 32px;
 }
 
 jotab:first-child {
@@ -95,3 +95,39 @@ jotab.selected {
 }
 
 
+joactionsheet {
+
+	-webkit-box-flex: 1;
+	box-flex: 1;
+	display: block;
+	overflow: hidden;
+	margin: 0 auto;
+	border: 0;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+	color: #FFF;
+	margin: 0 100;
+	background: #383838;
+/*	opacity: 0.8;*/
+ 	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	-webkit-border-radius: 0px;
+	-webkit-animation-name: joactionsheet-open-slideup;
+	-webkit-animation-delay: 0;
+	-webkit-animation-duration: 500ms;
+	min-height: auto;
+	position: absolute;
+}
+
+@-webkit-keyframes joactionsheet-open-slideup {
+    0% {
+	-webkit-transform: translateY(1100px);
+    }
+    70% {
+	-webkit-transform: translateY(0);
+    }
+    100% {
+	-webkit-transform: translateY(0);
+    }
+}

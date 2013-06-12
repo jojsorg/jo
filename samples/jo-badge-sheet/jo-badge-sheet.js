@@ -28,7 +28,64 @@ joTabBar.extend(joList, {
 });
 
 
+//joActionSheet, subclassed from joPopup: implements iOS-style action sheet
+joActionSheet = function(data) {
+    joPopup.apply(this, arguments);
+};
+joActionSheet.extend(joPopup, {
+    	tagName: "joactionsheet",
+ 	setEvents: function() {
+		joEvent.on(this.container, "mousedown", this.onClick, this);
+	},
+	
+    onClick: function(e) {
+		joEvent.stop(e);
+	},
+ createContainer: function() {
+        var o = joDOM.create(this);
+      
+     if (!o)
+          return;
+     return o;
+    }
+});
 
+/*Extend joScreen to show action sheet.*/
+
+joSheetScreen = function() {
+  joScreen.apply(this, arguments);
+};
+joSheetScreen.extend(joScreen, {
+   	// show a sheet made from your own UI controls
+	showSheet: function(data) {
+		// take a view, a DOM element or some HTML and
+		// make it pop up in the screen.
+		if (!this.sheet) {
+			this.shim = new joShim(
+				new joFlexcol([
+					'&nbsp',
+					this.sheet = new joActionSheet(data),
+					'&nbsp'
+				])
+			);
+		}
+		else {
+			this.sheet.setData(data);
+		}
+//		this.shim.showEvent.subscribe(this.popup.show, this);
+		this.shim.show();
+		this.sheet.show();
+		
+		return this;
+	},
+	
+	hideSheet: function() {
+		if (this.shim)
+			this.shim.hide();
+			
+		return this;
+	},
+});
 
 /*Now we get to the demo itself.*/
 
@@ -85,13 +142,14 @@ var App = (function () {
 
  /*Action alert that slides up.*/
  slideCard = [
-     new joTitle('Action Sheet'),
+     new joTitle('Action Sheet').setStyle({background: "#505050"}),
 	new joHTML('E-mail a friend about Jo.'),
 	new joDivider(), 
 	 mailbutton = new joButton('E-mail'),
 	 new joDivider(),	 
        closebutton = new joButton('Close Sheet'),
         ];
+
 
 /*About Jo.*/
      aboutCard = new joCard([
@@ -113,22 +171,23 @@ var App = (function () {
       /*Send text via e-mail.*/
       mailbutton.selectEvent.subscribe(function() { 
 	  maildata(datastring.getData());
+	  scn.hideSheet(slideCard);
 	}) 
 
         /*Show action sheet.*/
         slidebutton.selectEvent.subscribe(function() { 
-	    scn.showPopup(slideCard);					     
+	    scn.showSheet(slideCard);					     
 	}) 
 
      /*Hide action sheet.*/
      closebutton.selectEvent.subscribe(function() { 
-	 scn.hidePopup(slideCard);
+	 scn.hideSheet(slideCard);
 	 menu.refresh();
 	 
 	})
       
     // Set up the page elements		
-    scn = new joScreen(
+    scn = new joSheetScreen(
 		       new joContainer([
 			   stack = new joStackScroller(),
 				    
