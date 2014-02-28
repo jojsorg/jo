@@ -1,4 +1,5 @@
-@echo off
+ 
+
 if exist build.bat goto start
 goto wrongdir
 
@@ -21,7 +22,8 @@ del jo_core.js
 del jo_data.js
 del jo_ui.js
 
-for %%J in (jsmin.exe) do set JSMIN=%%~dp$PATH:Jjsmin.exe
+REM for %%J in (jsmin.exe) do set JSMIN=%%~dp$PATH:jsmin.exe
+set JSMIN=jsmin.exe
 if not "%JSMIN%"=="" goto minify
 echo "jsmin not found, skipping minification."
 cd ..
@@ -29,7 +31,7 @@ goto end
 
 :minify
 echo "Minifying js\jo.js -> js\jo_min.js"
-%JSMIN% < jo.js > jo_min.js
+..\%JSMIN% < jo.js > jo_min.js
 cd ..
 goto end
 
