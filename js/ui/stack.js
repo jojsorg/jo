@@ -85,6 +85,7 @@ joStack = function(data) {
 	this.hideEvent = new joSubject(this);
 	this.backEvent = new joSubject(this);
 	this.forwardEvent = new joSubject(this);
+	this.animateDoneEvent = new joSubject(this);
 
 	joContainer.call(this, data || []);
 
@@ -181,6 +182,7 @@ joStack.extend(joContainer, {
 
 			if (oldclass && oldchild)
 				joDOM.addCSSClass(oldchild, oldclass);
+			this.animateDoneEvent.fire();
 		}
 		
 		function cleanup() {
