@@ -74,7 +74,10 @@ joFileSource.extend(joDataSource, {
 
 	- `timeout` is an optional parameter which tells joFile to wait, in seconds,
 	  for a response before throwing an error.
-	
+	- `isPOST` is an optional parameter true if you need to do a post,
+	  
+	- `formData` parameters in a object to pass to POST,
+   
 	Use
 	---
 	
@@ -91,7 +94,7 @@ joFileSource.extend(joDataSource, {
 			console.log(data);
 		});
 */
-joFile = function(url, call, context, timeout) {
+joFile = function(url, call, context, timeout, isPOST, postData) {
 	var req = new XMLHttpRequest();
 
 	if (!req)
@@ -102,11 +105,34 @@ joFile = function(url, call, context, timeout) {
 		timeout = 60 * SEC;
 		
 	var timer = (timeout > 0) ? setTimeout(onerror, timeout) : null;
-
-	req.open('GET', url, true);
+	if( isPOST && postData){
+		req.open('POST', url, true);
+	}else{
+		req.open('GET', url, true);
+	}
 	req.onreadystatechange = onchange;
 	req.onError = onerror;
-	req.send(null);
+	if(isPOST && postData ){
+		var parmsStr="" ;
+		var parmCount=1;
+		for (var key in postData) {
+			if (postData.hasOwnProperty(key)) {
+				if(parmCount==1){
+					parmsStr=key+"="+encodeURIComponent(postData[key]);
+				}else{
+					parmsStr=parmsStr+"&"+key+"="+encodeURIComponent(postData[key]);
+				}
+				parmCount++;
+			}
+		}
+		//Send the proper header information along with the request
+		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		req.setRequestHeader("Content-length", parmsStr.length);
+		req.setRequestHeader("Connection", "close");
+		req.send(parmsStr);
+	}else{ //simple Get
+		req.send(null);
+	}
 	
 	function onchange(e) {
 		if (timer)
