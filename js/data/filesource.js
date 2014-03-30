@@ -94,7 +94,7 @@ joFileSource.extend(joDataSource, {
 			console.log(data);
 		});
 */
-joFile = function(url, call, context, timeout, isPOST, postData) {
+joFile = function(url, call, context, timeout, postData) {
 	var req = new XMLHttpRequest();
 
 	if (!req)
@@ -105,14 +105,14 @@ joFile = function(url, call, context, timeout, isPOST, postData) {
 		timeout = 60 * SEC;
 		
 	var timer = (timeout > 0) ? setTimeout(onerror, timeout) : null;
-	if( isPOST && postData){
+	if( postData){
 		req.open('POST', url, true);
 	}else{
 		req.open('GET', url, true);
 	}
 	req.onreadystatechange = onchange;
 	req.onError = onerror;
-	if(isPOST && postData ){
+	if( postData ){
 		var parmsStr="" ;
 		var parmCount=1;
 		for (var key in postData) {
@@ -127,8 +127,10 @@ joFile = function(url, call, context, timeout, isPOST, postData) {
 		}
 		//Send the proper header information along with the request
 		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		req.setRequestHeader("Content-length", parmsStr.length);
-		req.setRequestHeader("Connection", "close");
+		req.setRequestHeader("Content-length", parmStr.length);
+		req.setRequestHeader("Origin", document.location.origin);
+		 
+		req .setRequestHeader("Connection", "close");
 		req.send(parmsStr);
 	}else{ //simple Get
 		req.send(null);
